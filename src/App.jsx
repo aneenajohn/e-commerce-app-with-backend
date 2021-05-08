@@ -9,9 +9,9 @@ export default function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<ProductList />} />
+        <Route path="/products" element={<ProductList />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/wish-list" element={<WishList />} />
+        <Route path="/wishlist" element={<WishList />} />
       </Routes>
     </div>
   );

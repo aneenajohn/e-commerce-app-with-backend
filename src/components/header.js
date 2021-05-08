@@ -9,13 +9,13 @@ export const Header = () => {
   console.log(location.state);
   return (
     <nav className="head">
-      <Link to="/">
+      <Link to="/products">
         <p className="para--lead">Lingokart</p>
       </Link>
       <ul className="nav__menu">
         <li className="nav__item">
-          <Link to="/">
-            <div className="nav__link">Home</div>
+          <Link to="/products">
+            <div className="nav__link">Shop Now</div>
           </Link>
         </li>
         <li className="nav__item">
@@ -26,7 +26,7 @@ export const Header = () => {
           </Link>
         </li>
         <li className="nav__item">
-          <Link to="/wish-list" state={{ wishList }}>
+          <Link to="/wishlist" state={{ wishList }}>
             <div className="nav__link">
               <i className="fa fa-heart wish-header" aria-hidden="true"></i>
             </div>
