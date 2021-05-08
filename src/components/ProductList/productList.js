@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { BACKEND_URL } from "../backendUrl";
 import { useCart } from "../cart/cartContext";
 import { Header } from "../header";
 import { useWishList } from "../WishList/wishContext";
 import { useProduct } from "./productContext";
 import { getFilteredData } from "../Filter/filter";
 import { getSortedData } from "../Filter/sort";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function ProductList() {
   const [productsData, setProductsData] = useState([]);
@@ -15,12 +18,14 @@ export default function ProductList() {
   const { dispatch: productDispatch } = useProduct();
   const [isSelected, setSelected] = useState(false);
   const toggle = () => setSelected(!isSelected);
+
   useEffect(() => {
     (async function () {
       try {
         const {
           data: { products: dataFromServer }
-        } = await axios.get("https://lingokart-api.aneenasam.repl.co/products");
+        } = await axios.get(`${BACKEND_URL}products`);
+
         console.log(dataFromServer);
         setProductsData(dataFromServer);
       } catch (err) {
@@ -35,6 +40,44 @@ export default function ProductList() {
     showInventoryAll,
     showFastDeliveryOnly
   );
+  // https://lingokart-api.aneenasam.repl.co/cart
+  const addToCartHandler = async (product) => {
+    try {
+      const { data } = await axios.post(`${BACKEND_URL}cart`, {
+        _id: product._id,
+        quantity: 1
+      });
+      console.log("posted data", data);
+      console.log("id is", data.product);
+      if (data.success) {
+        cartDispatch({ type: "ADD_TO_CART", payLoad: product });
+        toast.success("Added to cart", {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: true
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const wishlistHandler = async (product) => {
+    try {
+      const { data } = await axios.post(`${BACKEND_URL}wishlist`, {
+        _id: product._id
+      });
+      console.log("posted data", data);
+      wishDispatch({ type: "ADD_TO_WISHLIST", payLoad: product });
+      toast.success("Added to wishlist", {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: true
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <section className="container">
@@ -116,10 +159,11 @@ export default function ProductList() {
                     //     : "fa fa-heart wish-icon"
                     // }
                     aria-hidden="true"
-                    onClick={() => {
-                      wishDispatch({ type: "ADD_TO_WISHLIST", payLoad: data });
-                      toggle();
-                    }}
+                    // onClick={() => {
+                    //   wishDispatch({ type: "ADD_TO_WISHLIST", payLoad: data });
+                    //   toggle();
+                    // }}
+                    onClick={() => wishlistHandler(data)}
                   ></i>
                   <div className="card__desc">
                     <h1>
@@ -148,9 +192,10 @@ export default function ProductList() {
                     <p className="card__details offer">{data.offer}</p>
                     <button
                       className="btn btn--primary btn--cart"
-                      onClick={() => {
-                        cartDispatch({ type: "ADD_TO_CART", payLoad: data });
-                      }}
+                      // onClick={() => {
+                      //   cartDispatch({ type: "ADD_TO_CART", payLoad: data._id });
+                      // }}
+                      onClick={() => addToCartHandler(data)}
                     >
                       Add to cart {"   "}
                       <i className="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -159,6 +204,7 @@ export default function ProductList() {
 
                     {}
                   </div>
+                  <ToastContainer />
                 </div>
               );
             })
