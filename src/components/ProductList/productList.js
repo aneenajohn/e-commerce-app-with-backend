@@ -20,7 +20,7 @@ export default function ProductList() {
       try {
         const {
           data: { products: dataFromServer }
-        } = await axios.get("/api/products");
+        } = await axios.get("https://lingokart-api.aneenasam.repl.co/products");
         console.log(dataFromServer);
         setProductsData(dataFromServer);
       } catch (err) {
@@ -100,9 +100,13 @@ export default function ProductList() {
           {filteredData ? (
             filteredData.map((data) => {
               return (
-                <div className="card card--display" key={data.id}>
+                <div className="card card--display" key={data._id}>
                   <div className="card__thumbnail">
-                    <img src={data.image} className="card__img" alt="cardImg" />
+                    <img
+                      src={data.imageUrl}
+                      className="card__img"
+                      alt="cardImg"
+                    />
                   </div>
                   <i
                     className="fa fa-heart wish-icon"
@@ -130,8 +134,17 @@ export default function ProductList() {
                       </div>
                     </div>
                     <h2>
-                      <strong>{data.price}</strong>
+                      <strong> ₹ {data.price}</strong>
                     </h2>
+                    <p
+                      className={
+                        data.inStock
+                          ? "stock-details inStock"
+                          : "stock-details outOfStock"
+                      }
+                    >
+                      {data.inStock ? "In Stock" : "Out of stock"}
+                    </p>
                     <p className="card__details offer">{data.offer}</p>
                     <button
                       className="btn btn--primary btn--cart"

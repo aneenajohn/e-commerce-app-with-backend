@@ -7,20 +7,20 @@ export const wishReducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_WISHLIST":
       const isWishPresent = state.wishList.find(
-        (wish) => Number(wish.id) === Number(action.payLoad.id)
+        (wish) => Number(wish._id) === Number(action.payLoad._id)
       );
       console.log("Is wish present", isWishPresent);
       return {
         ...state,
         wishList: state.wishList.find(
-          (wish) => Number(wish.id) === Number(action.payLoad.id)
+          (wish) => Number(wish._id) === Number(action.payLoad._id)
         )
-          ? state.wishList.filter((wish) => wish.id !== action.payLoad.id)
+          ? state.wishList.filter((wish) => wish._id !== action.payLoad._id)
           : state.wishList.concat({
-              id: action.payLoad.id,
+              _id: action.payLoad._id,
               name: action.payLoad.name,
               quantity: action.payLoad.quantity,
-              image: action.payLoad.image,
+              imageUrl: action.payLoad.imageUrl,
               price: action.payLoad.price,
               inStock: action.payLoad.inStock,
               fastDelivery: action.payLoad.fastDelivery,
@@ -31,7 +31,7 @@ export const wishReducer = (state, action) => {
     case "REMOVE":
       return {
         ...state,
-        wishList: state.wishList.filter((item) => item.id !== action.payLoad)
+        wishList: state.wishList.filter((item) => item._id !== action.payLoad)
       };
     default:
       return { state };

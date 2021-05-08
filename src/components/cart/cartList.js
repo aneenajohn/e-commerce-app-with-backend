@@ -44,19 +44,19 @@ export const Cart = () => {
             ) : (
               itemsInCart.map(
                 ({
-                  id,
+                  _id,
                   quantity,
                   name,
-                  image,
+                  imageUrl,
                   price,
                   inStock,
                   fastDelivery,
                   ratings,
                   offer
                 }) => (
-                  <div className="card card--display" Key={id}>
+                  <div className="card card--display" Key={_id}>
                     <div className="card__thumbnail">
-                      <img src={image} className="card__img" alt="cardImg" />
+                      <img src={imageUrl} className="card__img" alt="cardImg" />
                     </div>
                     <i className="fa fa-heart wish-icon" aria-hidden="true"></i>
                     <div className="card__desc">
@@ -72,14 +72,14 @@ export const Cart = () => {
                         </div>
                       </div>
                       <h2>
-                        <strong>{price}</strong>
+                        <strong> ₹ {price}</strong>
                       </h2>
                       <p className="card__details">{offer}</p>
                       <i
                         class="fa fa-plus"
                         aria-hidden="true"
                         onClick={() =>
-                          cartDispatch({ type: "INCREMENT", payLoad: id })
+                          cartDispatch({ type: "INCREMENT", payLoad: _id })
                         }
                       ></i>
                       <div className="card__quantity">{quantity}</div>
@@ -87,13 +87,13 @@ export const Cart = () => {
                         class="fa fa-minus"
                         aria-hidden="true"
                         onClick={() =>
-                          cartDispatch({ type: "DECREMENT", payLoad: id })
+                          cartDispatch({ type: "DECREMENT", payLoad: _id })
                         }
                       ></i>
                       <button
                         className="btn btn--primary  btn--trash"
                         onClick={() =>
-                          cartDispatch({ type: "REMOVE", payLoad: id })
+                          cartDispatch({ type: "REMOVE", payLoad: _id })
                         }
                       >
                         <i class="fa fa-trash-o" aria-hidden="true"></i>

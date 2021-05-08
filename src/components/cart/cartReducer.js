@@ -7,14 +7,14 @@ export const cartReducer = (state, action) => {
       return {
         ...state,
         itemsInCart: state.itemsInCart.find(
-          (item) => Number(item.id) === Number(action.payLoad.id)
+          (item) => Number(item._id) === Number(action.payLoad._id)
         )
-          ? state.itemsInCart.filter((item) => item.id !== action.payLoad.id)
+          ? state.itemsInCart.filter((item) => item._id !== action.payLoad._id)
           : state.itemsInCart.concat({
-              id: action.payLoad.id,
+              _id: action.payLoad._id,
               name: action.payLoad.name,
-              quantity: action.payLoad.quantity + 1,
-              image: action.payLoad.image,
+              quantity: 1,
+              imageUrl: action.payLoad.imageUrl,
               price: action.payLoad.price,
               inStock: action.payLoad.inStock,
               fastDelivery: action.payLoad.fastDelivery,
@@ -26,7 +26,7 @@ export const cartReducer = (state, action) => {
       return {
         ...state,
         itemsInCart: state.itemsInCart.map((item) =>
-          item.id === action.payLoad
+          item._id === action.payLoad
             ? { ...item, quantity: item.quantity + 1 }
             : item
         )
@@ -37,7 +37,7 @@ export const cartReducer = (state, action) => {
         ...state,
         itemsInCart: state.itemsInCart
           .map((item) =>
-            item.id === action.payLoad
+            item._id === action.payLoad
               ? {
                   ...item,
                   quantity: item.quantity && item.quantity - 1
@@ -51,7 +51,7 @@ export const cartReducer = (state, action) => {
       return {
         ...state,
         itemsInCart: state.itemsInCart.filter(
-          (item) => item.id !== action.payLoad
+          (item) => item._id !== action.payLoad
         )
       };
 

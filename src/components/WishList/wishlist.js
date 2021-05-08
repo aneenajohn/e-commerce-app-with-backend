@@ -1,6 +1,7 @@
 import { useWishList } from "./wishContext";
 import { Header } from "../header";
 import { useState } from "react";
+import "./wishList-styles.css";
 
 export const WishList = () => {
   const { wishList, dispatch: wishDispatch } = useWishList();
@@ -19,19 +20,19 @@ export const WishList = () => {
             ) : (
               wishList.map(
                 ({
-                  id,
+                  _id,
                   quantity,
                   name,
-                  image,
+                  imageUrl,
                   price,
                   inStock,
                   fastDelivery,
                   ratings,
                   offer
                 }) => (
-                  <div className="card card--display" Key={id}>
+                  <div className="card card--display" Key={_id}>
                     <div className="card__thumbnail">
-                      <img src={image} className="card__img" alt="cardImg" />
+                      <img src={imageUrl} className="card__img" alt="cardImg" />
                     </div>
                     <div className="card__desc">
                       <h1>
@@ -46,13 +47,13 @@ export const WishList = () => {
                         </div>
                       </div>
                       <h2>
-                        <strong>{price}</strong>
+                        <strong> ₹ {price}</strong>
                       </h2>
                       <p className="card__details">{offer}</p>
                       <button
                         className="btn btn--primary  btn--trash"
                         onClick={() =>
-                          wishDispatch({ type: "REMOVE", payLoad: id })
+                          wishDispatch({ type: "REMOVE", payLoad: _id })
                         }
                       >
                         <i
