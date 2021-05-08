@@ -1,5 +1,6 @@
 import { useCart } from "./cartContext";
 import { Header } from "../header";
+import "./cartStyles.css";
 export const Cart = () => {
   const { itemsInCart, dispatch: cartDispatch } = useCart();
 
@@ -11,7 +12,7 @@ export const Cart = () => {
         <Header />
         <h1 class="heading center fs-h1">My Cart</h1>
         {console.log("items in cart", { itemsInCart })}
-        <div className="cart-total center">
+        <div className="aside cart-total center">
           {itemsInCart.length !== 0 && (
             <div className="bill">
               <div className="para total">

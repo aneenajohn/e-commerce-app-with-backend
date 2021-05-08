@@ -132,7 +132,7 @@ export default function ProductList() {
           </label>
         </fieldset>
         <div
-          class="btn btn--primary filter"
+          class="btn btn--primary filter-label"
           onClick={() => productDispatch({ type: "CLEAR_FILTER" })}
         >
           Clear Filter
@@ -153,16 +153,7 @@ export default function ProductList() {
                   </div>
                   <i
                     className="fa fa-heart wish-icon"
-                    // className={
-                    //   isSelected
-                    //     ? "fa fa-heart wish-icon wish-icon--selected"
-                    //     : "fa fa-heart wish-icon"
-                    // }
                     aria-hidden="true"
-                    // onClick={() => {
-                    //   wishDispatch({ type: "ADD_TO_WISHLIST", payLoad: data });
-                    //   toggle();
-                    // }}
                     onClick={() => wishlistHandler(data)}
                   ></i>
                   <div className="card__desc">
