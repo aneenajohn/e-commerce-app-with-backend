@@ -1,7 +1,7 @@
 export const cartReducer = (state, action) => {
-  console.log(action.type);
-  console.log(action.payLoad);
-  console.log({ state });
+  // console.log(action.type);
+  // console.log(action.payLoad);
+  // console.log({ state });
   switch (action.type) {
     case "ADD_TO_CART":
       return {
@@ -44,12 +44,3 @@ export const cartReducer = (state, action) => {
       return state;
   }
 };
-
-// id: "bb463b8b-b76c-4f6a-9726-65ab5730b69b"
-// name: "Generic Concrete Table"
-// image: "http://placeimg.com/640/480/business"
-// price: "84.00"
-// inStock: true
-// fastDelivery: true
-// ratings: 3
-// offer: "Best Seller"

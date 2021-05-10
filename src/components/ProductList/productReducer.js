@@ -1,5 +1,5 @@
 export const productReducer = (state, action) => {
-  console.log(state, action);
+  // console.log(state, action);
   switch (action.type) {
     case "SORT":
       return { ...state, sortBy: action.payLoad };

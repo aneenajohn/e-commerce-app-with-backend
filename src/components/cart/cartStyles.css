@@ -45,3 +45,8 @@
 .btn--buy-now {
   margin-right: 8rem;
 }
+
+.cart-container .card__desc {
+  width: 280px;
+  height: 200px;
+}

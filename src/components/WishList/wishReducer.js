@@ -1,8 +1,8 @@
 export const wishReducer = (state, action) => {
-  console.log(state);
-  console.log(action.type);
-  console.log(action.payLoad);
-  console.log(state.wishList);
+  // console.log(state);
+  // console.log(action.type);
+  // console.log(action.payLoad);
+  // console.log(state.wishList);
   // return state;
   switch (action.type) {
     case "ADD_TO_WISHLIST":

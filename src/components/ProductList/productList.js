@@ -33,7 +33,7 @@ export default function ProductList() {
         const {
           data: { products: dataFromServer }
         } = await axios.get(`${BACKEND_URL}products`);
-        console.log(dataFromServer);
+        // console.log(dataFromServer);
         setProductsData(dataFromServer);
         setLoader(false);
       } catch (err) {
@@ -51,7 +51,7 @@ export default function ProductList() {
   // https://lingokart-api.aneenasam.repl.co/cart
   const addToCartHandler = async (product) => {
     const itemFound = itemsInCart.find((item) => item._id === product._id);
-    console.log("wish search", itemFound);
+    // console.log("wish search", itemFound);
 
     if (itemFound) {
       toast.dark("Item already present in cart", {
@@ -65,8 +65,8 @@ export default function ProductList() {
           _id: product._id,
           quantity: 1
         });
-        console.log("posted data", data);
-        console.log("id is", data.product);
+        // console.log("posted data", data);
+        // console.log("id is", data.product);
 
         if (data.success) {
           cartDispatch({ type: "ADD_TO_CART", payLoad: product });
@@ -115,7 +115,7 @@ export default function ProductList() {
         const { data } = await axios.post(`${BACKEND_URL}wishlist`, {
           _id: product._id
         });
-        console.log("posted data", data);
+        // console.log("posted data", data);
         if (data.success) {
           wishDispatch({ type: "ADD_TO_WISHLIST", payLoad: product });
           toast.success("Item added to wish list", {

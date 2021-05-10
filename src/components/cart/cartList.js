@@ -33,7 +33,7 @@ export const Cart = () => {
         _id: _id,
         quantity: updatedQuantity
       };
-      console.log("passing load is", payLoad);
+      // console.log("passing load is", payLoad);
       setQtyUpdate(true);
       if (data.success) {
         cartDispatch({ type: "UPDATE", payLoad: payLoad });
@@ -50,9 +50,8 @@ export const Cart = () => {
 
   const deleteCartItem = async (_id) => {
     try {
-      console.log("inside delete");
       const { data } = await axios.delete(`${BACKEND_URL}cart/${_id}`);
-      console.log(data);
+      // console.log(data);
 
       if (data.success) {
         cartDispatch({ type: "REMOVE", payLoad: _id });
@@ -119,7 +118,7 @@ export const Cart = () => {
                     <div className="card__thumbnail">
                       <img src={imageUrl} className="card__img" alt="cardImg" />
                     </div>
-                    <i className="fa fa-heart wish-icon" aria-hidden="true"></i>
+                    {/* <i className="fa fa-heart wish-icon" aria-hidden="true"></i> */}
                     <div className="card__desc">
                       <h1>
                         <strong>{name}</strong>
