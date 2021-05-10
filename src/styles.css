@@ -32,11 +32,6 @@ body {
   font-size: medium;
 }
 
-#toast.show {
-  /* right: 35%; */
-  /* top: 5%; */
-}
-
 /* Header */
 .head {
   display: flex;
@@ -79,7 +74,7 @@ body {
   top: 10%;
 }
 
-.fa-shopping-cart {
+.fa-shopping-cart--nav {
   font-size: x-large;
 }
 
@@ -87,8 +82,6 @@ body {
   font-size: x-large;
 }
 
-.icon-badge__heart {
-}
 /* product Listing */
 
 .container {

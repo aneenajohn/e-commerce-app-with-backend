@@ -22,7 +22,10 @@ export const Header = () => {
           <Link to="/cart" state={{ itemsInCart }}>
             <div className="nav__link">
               {itemsInCart.length === 0 ? (
-                <i className="fa fa-shopping-cart" aria-hidden="true"></i>
+                <i
+                  className="fa fa-shopping-cart fa-shopping-cart--nav"
+                  aria-hidden="true"
+                ></i>
               ) : (
                 <div class="icon-badge">
                   <i class="fa fa-shopping-cart" aria-hidden="true"></i>
