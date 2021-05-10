@@ -19,7 +19,6 @@ export const wishReducer = (state, action) => {
           : state.wishList.concat({
               _id: action.payLoad._id,
               name: action.payLoad.name,
-              quantity: action.payLoad.quantity,
               imageUrl: action.payLoad.imageUrl,
               price: action.payLoad.price,
               inStock: action.payLoad.inStock,

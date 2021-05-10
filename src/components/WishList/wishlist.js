@@ -2,12 +2,30 @@ import { useWishList } from "./wishContext";
 import { Header } from "../header";
 import { useState } from "react";
 import "./wishList-styles.css";
+import { BACKEND_URL } from "../backendUrl";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 export const WishList = () => {
   const { wishList, dispatch: wishDispatch } = useWishList();
-  const [isWishSelected, setWishSelected] = useState(false);
 
-  const wishToggle = () => setWishSelected(!isWishSelected);
+  const deleteFromWishlist = async (productId) => {
+    try {
+      const { data } = await axios.delete(
+        `${BACKEND_URL}wishlist/${productId}`
+      );
+      if (data.success) {
+        wishDispatch({ type: "REMOVE", payLoad: productId });
+        toast.dark("Item removed from wishlist", {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: true
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
     <section className="wish-container">
       <div>
@@ -21,7 +39,6 @@ export const WishList = () => {
               wishList.map(
                 ({
                   _id,
-                  quantity,
                   name,
                   imageUrl,
                   price,
@@ -53,13 +70,14 @@ export const WishList = () => {
                       <button
                         className="btn btn--primary  btn--trash"
                         onClick={() =>
-                          wishDispatch({ type: "REMOVE", payLoad: _id })
+                          // wishDispatch({ type: "REMOVE", payLoad: _id })
+                          deleteFromWishlist(_id)
                         }
                       >
                         <i
                           class="fa fa-trash-o"
                           aria-hidden="true"
-                          onClick={() => wishToggle()}
+                          // onClick={() => deleteFromWishlist()}
                         ></i>
                         Remove
                       </button>
@@ -71,6 +89,7 @@ export const WishList = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </section>
   );
 };

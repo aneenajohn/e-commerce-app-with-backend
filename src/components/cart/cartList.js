@@ -53,8 +53,9 @@ export const Cart = () => {
       console.log("inside delete");
       const { data } = await axios.delete(`${BACKEND_URL}cart/${_id}`);
       console.log(data);
-      cartDispatch({ type: "REMOVE", payLoad: _id });
+
       if (data.success) {
+        cartDispatch({ type: "REMOVE", payLoad: _id });
         toast.dark("Removed from cart", {
           position: "bottom-left",
           autoClose: 3000,

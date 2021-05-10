@@ -13,8 +13,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function ProductList() {
   const [productsData, setProductsData] = useState([]);
-  const { dispatch: cartDispatch } = useCart();
-  const { dispatch: wishDispatch } = useWishList();
+  const { dispatch: cartDispatch, itemsInCart } = useCart();
+  const { dispatch: wishDispatch, wishList } = useWishList();
   const {
     dispatch: productDispatch,
     sortBy,
@@ -50,31 +50,37 @@ export default function ProductList() {
   );
   // https://lingokart-api.aneenasam.repl.co/cart
   const addToCartHandler = async (product) => {
-    try {
-      const { data } = await axios.post(`${BACKEND_URL}cart`, {
-        _id: product._id,
-        quantity: 1
-      });
-      console.log("posted data", data);
-      console.log("id is", data.product);
+    const itemFound = itemsInCart.find((item) => item._id === product._id);
+    console.log("wish search", itemFound);
 
-      if (data.success) {
-        cartDispatch({ type: "ADD_TO_CART", payLoad: product });
-        toast.success("Added to cart", {
-          position: "bottom-left",
-          autoClose: 3000,
-          hideProgressBar: true
+    if (itemFound) {
+      toast.dark("Item already present in cart", {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: true
+      });
+    } else {
+      try {
+        const { data } = await axios.post(`${BACKEND_URL}cart`, {
+          _id: product._id,
+          quantity: 1
         });
-      } else if (data.success === false) {
-        toast.dark("Item already present in cart", {
-          position: "bottom-left",
-          autoClose: 3000,
-          hideProgressBar: true
-        });
+        console.log("posted data", data);
+        console.log("id is", data.product);
+
+        if (data.success) {
+          cartDispatch({ type: "ADD_TO_CART", payLoad: product });
+          toast.success("Added to cart", {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: true
+          });
+        }
+      } catch (err) {
+        console.error(err);
       }
-    } catch (err) {
-      console.error(err);
     }
+
     return (
       <>
         <DataLoader />
@@ -83,19 +89,44 @@ export default function ProductList() {
   };
 
   const wishlistHandler = async (product) => {
-    try {
-      const { data } = await axios.post(`${BACKEND_URL}wishlist`, {
-        _id: product._id
-      });
-      console.log("posted data", data);
-      wishDispatch({ type: "ADD_TO_WISHLIST", payLoad: product });
-      toast.success("Added to wishlist", {
-        position: "bottom-left",
-        autoClose: 3000,
-        hideProgressBar: true
-      });
-    } catch (err) {
-      console.error(err);
+    console.log("Incoming data", product);
+
+    const itemFound = wishList.find((item) => item._id === product._id);
+    console.log("wish search", itemFound);
+
+    if (itemFound) {
+      try {
+        const { data } = await axios.delete(
+          `${BACKEND_URL}wishlist/${product._id}`
+        );
+        if (data.success) {
+          wishDispatch({ type: "REMOVE", payLoad: product._id });
+          toast.dark("Item removed from wishlist", {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: true
+          });
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      try {
+        const { data } = await axios.post(`${BACKEND_URL}wishlist`, {
+          _id: product._id
+        });
+        console.log("posted data", data);
+        if (data.success) {
+          wishDispatch({ type: "ADD_TO_WISHLIST", payLoad: product });
+          toast.success("Item added to wish list", {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: true
+          });
+        }
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
 

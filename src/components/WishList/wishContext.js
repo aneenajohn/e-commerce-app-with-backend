@@ -5,10 +5,13 @@ export const WishContext = createContext();
 
 export const WishProvider = ({ children }) => {
   const wishList = [];
-  const [state, dispatch] = useReducer(wishReducer, { wishList });
+  const isWishListed = false;
+  const [state, dispatch] = useReducer(wishReducer, { wishList, isWishListed });
   return (
     <WishContext.Provider
-      value={(wishReducer, { wishList: state.wishList, dispatch })}
+      value={
+        (wishReducer, { wishList: state.wishList, dispatch, isWishListed })
+      }
     >
       {children}
     </WishContext.Provider>
