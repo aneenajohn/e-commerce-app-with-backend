@@ -7,6 +7,7 @@ export const Header = () => {
   const { wishList } = useWishList();
   const location = useLocation();
   console.log(location.state);
+  // console.log("wishlist in header", wishList);
   return (
     <nav className="head">
       <Link to="/">
