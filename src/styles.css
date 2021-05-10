@@ -224,10 +224,6 @@ body {
 }
 
 /* CARTLIST */
-.cart-container .card__desc {
-  width: 280px;
-  height: 200px;
-}
 
 .qtySpinner {
   position: relative;
