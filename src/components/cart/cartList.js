@@ -1,11 +1,71 @@
 import { useCart } from "./cartContext";
 import { Header } from "../header";
+import { BACKEND_URL } from "../backendUrl";
+import axios from "axios";
 import "./cartStyles.css";
+import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import { DataLoader } from "../DataLoader";
+
 export const Cart = () => {
   const { itemsInCart, dispatch: cartDispatch } = useCart();
-
+  const [isQtyUpdated, setQtyUpdate] = useState(true);
   const totalReducer = () =>
     itemsInCart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+  const CartUpdate = async ({ type, payLoad }) => {
+    const _id = payLoad;
+    const itemFound = itemsInCart.find((item) => item._id === _id);
+    let updatedQuantity;
+    if (type === "INCREMENT") {
+      updatedQuantity = itemFound.quantity + 1;
+    } else {
+      updatedQuantity = itemFound.quantity - 1;
+      return updatedQuantity === 0 && deleteCartItem(_id);
+    }
+    try {
+      setQtyUpdate(false);
+      const { data } = await axios.post(`${BACKEND_URL}cart/${_id}`, {
+        _id: _id,
+        quantity: updatedQuantity
+      });
+      payLoad = {
+        _id: _id,
+        quantity: updatedQuantity
+      };
+      console.log("passing load is", payLoad);
+      setQtyUpdate(true);
+      if (data.success) {
+        cartDispatch({ type: "UPDATE", payLoad: payLoad });
+      }
+    } catch (err) {
+      console.error("Error Occured", err);
+    }
+    return (
+      <>
+        <DataLoader />
+      </>
+    );
+  };
+
+  const deleteCartItem = async (_id) => {
+    try {
+      console.log("inside delete");
+      const { data } = await axios.delete(`${BACKEND_URL}cart/${_id}`);
+      console.log(data);
+      cartDispatch({ type: "REMOVE", payLoad: _id });
+      if (data.success) {
+        toast.dark("Removed from cart", {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: true
+        });
+      }
+    } catch (err) {
+      console.error("Error happened", err);
+    }
+  };
+
   return (
     <section className="cart-container">
       <div>
@@ -80,21 +140,28 @@ export const Cart = () => {
                         class="fa fa-plus"
                         aria-hidden="true"
                         onClick={() =>
-                          cartDispatch({ type: "INCREMENT", payLoad: _id })
+                          CartUpdate({ type: "INCREMENT", payLoad: _id })
                         }
                       ></i>
-                      <div className="card__quantity">{quantity}</div>
+                      <div className="card__quantity">
+                        {isQtyUpdated ? (
+                          quantity
+                        ) : (
+                          <i class="fa fa-spinner fa-pulse qtySpinner fa-fw"></i>
+                        )}
+                      </div>
                       <i
                         class="fa fa-minus"
                         aria-hidden="true"
                         onClick={() =>
-                          cartDispatch({ type: "DECREMENT", payLoad: _id })
+                          CartUpdate({ type: "DECREMENT", payLoad: _id })
                         }
                       ></i>
                       <button
                         className="btn btn--primary  btn--trash"
-                        onClick={() =>
-                          cartDispatch({ type: "REMOVE", payLoad: _id })
+                        onClick={
+                          () => deleteCartItem(_id)
+                          // cartDispatch({ type: "REMOVE", payLoad: _id })
                         }
                       >
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
@@ -106,6 +173,7 @@ export const Cart = () => {
               )
             )}
           </div>
+          <ToastContainer />
         </div>
       </div>
     </section>

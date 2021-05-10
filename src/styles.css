@@ -28,8 +28,8 @@ body {
   align-items: center;
 }
 
-#toast {
-  font-size: medium;
+.toastBody {
+  font-size: 2rem;
 }
 
 /* Header */
@@ -83,6 +83,11 @@ body {
 }
 
 /* product Listing */
+.fa-spinner {
+  position: relative;
+  top: 40%;
+  left: 70%;
+}
 
 .container {
   display: grid;

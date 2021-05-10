@@ -22,29 +22,14 @@ export const cartReducer = (state, action) => {
               offer: action.payLoad.offer
             })
       };
-    case "INCREMENT":
+    case "UPDATE":
       return {
         ...state,
         itemsInCart: state.itemsInCart.map((item) =>
-          item._id === action.payLoad
-            ? { ...item, quantity: item.quantity + 1 }
+          item._id === action.payLoad._id
+            ? { ...item, quantity: action.payLoad.quantity }
             : item
         )
-      };
-
-    case "DECREMENT":
-      return {
-        ...state,
-        itemsInCart: state.itemsInCart
-          .map((item) =>
-            item._id === action.payLoad
-              ? {
-                  ...item,
-                  quantity: item.quantity && item.quantity - 1
-                }
-              : item
-          )
-          .filter((item) => item.quantity !== 0)
       };
 
     case "REMOVE":

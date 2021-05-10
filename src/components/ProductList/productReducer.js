@@ -1,4 +1,3 @@
-export const products = [];
 export const productReducer = (state, action) => {
   console.log(state, action);
   switch (action.type) {

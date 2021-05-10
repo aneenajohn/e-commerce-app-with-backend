@@ -1,11 +1,11 @@
 import { createContext, useContext } from "react";
-import { products, productReducer } from "./productReducer";
+import { productReducer } from "./productReducer";
 import { useReducer } from "react";
 export const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
   const [state, dispatch] = useReducer(productReducer, {
-    products,
+    products: [],
     sortBy: null,
     showInventoryAll: true,
     showFastDeliveryOnly: false

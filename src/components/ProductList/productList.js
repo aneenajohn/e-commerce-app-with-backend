@@ -8,26 +8,34 @@ import { useProduct } from "./productContext";
 import { getFilteredData } from "../Filter/filter";
 import { getSortedData } from "../Filter/sort";
 import { ToastContainer, toast } from "react-toastify";
+import { DataLoader } from "../DataLoader";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function ProductList() {
   const [productsData, setProductsData] = useState([]);
   const { dispatch: cartDispatch } = useCart();
   const { dispatch: wishDispatch } = useWishList();
-  const { sortBy, showInventoryAll, showFastDeliveryOnly } = useProduct();
-  const { dispatch: productDispatch } = useProduct();
+  const {
+    dispatch: productDispatch,
+    sortBy,
+    showInventoryAll,
+    showFastDeliveryOnly
+  } = useProduct();
   const [isSelected, setSelected] = useState(false);
+  const [isLoading, setLoader] = useState(false);
+
   const toggle = () => setSelected(!isSelected);
 
   useEffect(() => {
     (async function () {
       try {
+        setLoader(true);
         const {
           data: { products: dataFromServer }
         } = await axios.get(`${BACKEND_URL}products`);
-
         console.log(dataFromServer);
         setProductsData(dataFromServer);
+        setLoader(false);
       } catch (err) {
         console.error(`Error happened ${err}`);
       }
@@ -49,9 +57,16 @@ export default function ProductList() {
       });
       console.log("posted data", data);
       console.log("id is", data.product);
+
       if (data.success) {
         cartDispatch({ type: "ADD_TO_CART", payLoad: product });
         toast.success("Added to cart", {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: true
+        });
+      } else if (data.success === false) {
+        toast.dark("Item already present in cart", {
           position: "bottom-left",
           autoClose: 3000,
           hideProgressBar: true
@@ -60,6 +75,11 @@ export default function ProductList() {
     } catch (err) {
       console.error(err);
     }
+    return (
+      <>
+        <DataLoader />
+      </>
+    );
   };
 
   const wishlistHandler = async (product) => {
@@ -140,7 +160,7 @@ export default function ProductList() {
       </div>
       <div className="container__main">
         <div className="card-container">
-          {filteredData ? (
+          {!isLoading ? (
             filteredData.map((data) => {
               return (
                 <div className="card card--display" key={data._id}>
@@ -200,7 +220,9 @@ export default function ProductList() {
               );
             })
           ) : (
-            <div>Loading....</div>
+            <div>
+              <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
           )}
         </div>
       </div>
