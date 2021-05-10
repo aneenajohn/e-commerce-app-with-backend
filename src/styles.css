@@ -6,12 +6,6 @@ body {
   font-family: "Open Sans", sans-serif;
   background: #f3f4f6;
 }
-/* .navbar {
-  width: 100vw;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-} */
 
 .app-header {
   text-align: center;
@@ -111,8 +105,6 @@ body {
   margin-top: 80px;
   grid-area: aside;
   height: calc(100vh - 50px);
-  /* overflow-y: auto; */
-  /* overflow-x: clip; */
   overflow: auto;
   position: fixed;
   padding: 1rem;
@@ -231,10 +223,17 @@ body {
   padding: 0 1rem;
 }
 
+/* CARTLIST */
+.cart-container .card__desc {
+  width: 280px;
+  height: 200px;
+}
+
+.qtySpinner {
+  position: relative;
+}
+
 /* WISHLIST */
-/* .wish-icon--selected {
-  color: var(--primary-color);
-} */
 
 .wish-contaniner {
   display: grid;

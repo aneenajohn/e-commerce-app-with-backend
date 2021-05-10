@@ -87,10 +87,10 @@ export const Cart = () => {
                 {""}
               </div>
               <div className="para">
-                <b>Amount to be paid:</b>
+                <b>Bill Amount:</b>
                 {""}
                 {""}
-                {totalReducer() - 0.2 * totalReducer()}
+                {totalReducer()}
               </div>
               <button className="btn btn--primary btn--buy-now">
                 Order Now
