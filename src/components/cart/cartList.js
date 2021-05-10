@@ -82,10 +82,9 @@ export const Cart = () => {
                 {totalReducer()}
               </div>
               <div className="para">
-                <b>Discount 20%:</b>
+                <b>Delivery Charges: Free</b>
                 {""}
                 {""}
-                {0.2 * totalReducer()}
               </div>
               <div className="para">
                 <b>Amount to be paid:</b>
@@ -136,7 +135,7 @@ export const Cart = () => {
                       <h2>
                         <strong> ₹ {price}</strong>
                       </h2>
-                      <p className="card__details">{offer}</p>
+                      <p className="card__details offer">{offer}</p>
                       <i
                         class="fa fa-plus"
                         aria-hidden="true"
