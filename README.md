@@ -9,6 +9,11 @@ Lingokart is a curated version of best books and courses which would help people
 
 This ecommerce app built with ReactJS has the following features:
 
+## Teck Stack Used :
+   * MERN Stack
+      - MongoDB for backend and mongoose to connect with mongo db and validation
+      
+
 ## 1) Product Listing Page
  * List of all products
  * Add to cart button
@@ -22,6 +27,7 @@ This ecommerce app built with ReactJS has the following features:
 ## 2) Cart Page
   * Increase / Decrease the quantity
   * Remove from cart
+  * Move to wishlist from cart 
   * List of cart items
   * Total cost of all the cart items
   
@@ -36,16 +42,13 @@ This ecommerce app built with ReactJS has the following features:
      - Language
      - Price range
      - Rating
- 
-### 2) Cart Page
-  * Move to wishlist from cart -> Done
-  
-### 3) Wishlist page
+   
+### 2) Wishlist page
   * Move to cart from wishlist
  
-### 4) User Authentication
+### 3) User Authentication
   * Login Page to autheticate users
   * Only authenticated users will be allowed to add to cart / add to wishlist
   
-### 5) Home Page
+### 4) Home Page
   * A beautiful home page 😉 to let users know about the app on first look.
