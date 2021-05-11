@@ -3,7 +3,7 @@
 
 Lingokart is a curated version of best books and courses which would help people to see the world with a different aspect by learniong different languages.
 
-> ** *Learning another language is like becoming another person.* **
+> *Learning another language is like becoming another person.*
 
 ## Live link https://lingokart.netlify.app/
 
