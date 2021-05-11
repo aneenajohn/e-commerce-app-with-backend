@@ -34,6 +34,7 @@ export default function ProductList() {
           data: { products: dataFromServer }
         } = await axios.get(`${BACKEND_URL}products`);
         // console.log(dataFromServer);
+
         setProductsData(dataFromServer);
         setLoader(false);
       } catch (err) {
@@ -80,7 +81,6 @@ export default function ProductList() {
         console.error(err);
       }
     }
-
     return (
       <>
         <DataLoader />

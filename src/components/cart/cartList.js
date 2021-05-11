@@ -19,9 +19,12 @@ export const Cart = () => {
     let updatedQuantity;
     if (type === "INCREMENT") {
       updatedQuantity = itemFound.quantity + 1;
-    } else {
+    } else if (type === "DECREMENT") {
       updatedQuantity = itemFound.quantity - 1;
-      return updatedQuantity === 0 && deleteCartItem(_id);
+      // return updatedQuantity === 0 && deleteCartItem(_id);
+      if (updatedQuantity === 0) {
+        return deleteCartItem(_id);
+      }
     }
     try {
       setQtyUpdate(false);
@@ -33,7 +36,7 @@ export const Cart = () => {
         _id: _id,
         quantity: updatedQuantity
       };
-      // console.log("passing load is", payLoad);
+      console.log("passing load is", payLoad);
       setQtyUpdate(true);
       if (data.success) {
         cartDispatch({ type: "UPDATE", payLoad: payLoad });
@@ -50,11 +53,11 @@ export const Cart = () => {
 
   const deleteCartItem = async (_id) => {
     try {
+      console.log("inside delete");
       const { data } = await axios.delete(`${BACKEND_URL}cart/${_id}`);
-      // console.log(data);
-
+      console.log(data);
+      cartDispatch({ type: "REMOVE", payLoad: _id });
       if (data.success) {
-        cartDispatch({ type: "REMOVE", payLoad: _id });
         toast.dark("Removed from cart", {
           position: "bottom-left",
           autoClose: 3000,
@@ -81,15 +84,16 @@ export const Cart = () => {
                 {totalReducer()}
               </div>
               <div className="para">
-                <b>Delivery Charges: Free</b>
+                <b>Discount 20%:</b>
                 {""}
                 {""}
+                {0.2 * totalReducer()}
               </div>
               <div className="para">
-                <b>Bill Amount:</b>
+                <b>Amount to be paid:</b>
                 {""}
                 {""}
-                {totalReducer()}
+                {totalReducer() - 0.2 * totalReducer()}
               </div>
               <button className="btn btn--primary btn--buy-now">
                 Order Now
@@ -118,7 +122,7 @@ export const Cart = () => {
                     <div className="card__thumbnail">
                       <img src={imageUrl} className="card__img" alt="cardImg" />
                     </div>
-                    {/* <i className="fa fa-heart wish-icon" aria-hidden="true"></i> */}
+                    <i className="fa fa-heart wish-icon" aria-hidden="true"></i>
                     <div className="card__desc">
                       <h1>
                         <strong>{name}</strong>
@@ -134,7 +138,7 @@ export const Cart = () => {
                       <h2>
                         <strong> ₹ {price}</strong>
                       </h2>
-                      <p className="card__details offer">{offer}</p>
+                      <p className="card__details">{offer}</p>
                       <i
                         class="fa fa-plus"
                         aria-hidden="true"
