@@ -1,8 +1,8 @@
 # e-commerce-app
-# Lingokart is an e-commerce app for peopele who love to speak different languages.
+# Lingokart is an e-commerce app for people who love to speak different languages.
 
 Lingokart is a curated version of best books and courses which would help people to see the world with a different aspect by learniong different languages.
-## live link https://lingokart.netlify.app/wishlist
+## live link https://lingokart.netlify.app/
 
 > learning another language is like becoming another person.
 
