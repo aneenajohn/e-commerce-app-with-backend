@@ -38,7 +38,7 @@ This ecommerce app built with ReactJS has the following features:
      - Rating
  
 ### 2) Cart Page
-  * Move to wishlist from cart
+  * Move to wishlist from cart -> Done
   
 ### 3) Wishlist page
   * Move to cart from wishlist
