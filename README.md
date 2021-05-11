@@ -11,9 +11,8 @@ This ecommerce app built with ReactJS has the following features:
 
 ## Teck Stack Used :
    * MERN Stack
-      - MongoDB for backend and mongoose to connect with mongo db and validation
-      
-
+      - MongoDB for backend and mongoose to connect with mongo db and validation.
+       
 ## 1) Product Listing Page
  * List of all products
  * Add to cart button
