@@ -21,10 +21,10 @@ export default function ProductList() {
     showInventoryAll,
     showFastDeliveryOnly
   } = useProduct();
-  const [isSelected, setSelected] = useState(false);
+  // const [isSelected, setSelected] = useState(false);
   const [isLoading, setLoader] = useState(false);
 
-  const toggle = () => setSelected(!isSelected);
+  // const toggle = () => setSelected(!isSelected);
 
   useEffect(() => {
     (async function () {
@@ -206,6 +206,7 @@ export default function ProductList() {
                     className="fa fa-heart wish-icon"
                     aria-hidden="true"
                     onClick={() => wishlistHandler(data)}
+                    // onClick={() => <WishlistHandler data={data} />}
                   ></i>
                   <div className="card__desc">
                     <h1>
