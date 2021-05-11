@@ -1,2 +1,52 @@
-# e-commerce-app-with-backend
-Created with CodeSandbox
+# e-commerce-app
+# Lingokart is an e-commerce app for peopele who love to speak different languages.
+
+Lingokart is a curated version of best books and courses which would help people to see the world with a different aspect by learniong different languages.
+## live link https://lingokart.netlify.app/wishlist
+
+> learning another language is like becoming another person.
+
+This ecommerce app built with ReactJS has the following features:
+
+## 1) Product Listing Page
+ * List of all products
+ * Add to cart button
+ * Add to wishlist option
+ * Filter by 
+      - Stock Availability
+      - Fast Delivery Option
+      - Price (high to low and low to high)
+ * Option to clear all filters
+      
+## 2) Cart Page
+  * Increase / Decrease the quantity
+  * Remove from cart
+  * List of cart items
+  * Total cost of all the cart items
+  
+## 3) Wishlist page
+   * List of all wishlist products
+   * Remove from wishlist
+   
+## Next Version would have:
+### 1) Product Listing Page
+ * Option to search products
+ * Filter by 
+     - Language
+     - Price range
+     - Rating
+ 
+### 2) Cart Page
+  * Move to wishlist from cart
+  
+### 3) Wishlist page
+  * Move to cart from wishlist
+ 
+### 4) User Authentication
+  * Login Page to autheticate users
+  * Only authenticated users will be allowed to add to cart / add to wishlist
+  
+### 5) Home Page
+  * A beautiful home page 😉 to let users know about the app on first look.
+
+
