@@ -234,7 +234,12 @@ export default function ProductList() {
                     </p>
                     <p className="card__details offer">{data.offer}</p>
                     <button
-                      className="btn btn--primary btn--cart"
+                      className={
+                        data.inStock
+                          ? "btn btn--primary btn--cart"
+                          : "btn btn--primary btn--cart disabled"
+                      }
+                      // className="btn btn--primary btn--cart"
                       // onClick={() => {
                       //   cartDispatch({ type: "ADD_TO_CART", payLoad: data._id });
                       // }}
