@@ -66,7 +66,7 @@ export const WishList = () => {
                       <h2>
                         <strong> ₹ {price}</strong>
                       </h2>
-                      <p className="card__details">{offer}</p>
+                      <p className="card__details offer">{offer}</p>
                       <button
                         className="btn btn--primary  btn--trash"
                         onClick={() =>

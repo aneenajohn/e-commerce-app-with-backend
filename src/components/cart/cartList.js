@@ -179,7 +179,7 @@ export const Cart = () => {
                     <h2>
                       <strong> ₹ {data.price}</strong>
                     </h2>
-                    <p className="card__details">{data.offer}</p>
+                    <p className="card__details offer">{data.offer}</p>
                     <i
                       class="fa fa-plus"
                       aria-hidden="true"
