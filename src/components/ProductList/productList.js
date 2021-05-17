@@ -7,9 +7,11 @@ import { useWishList } from "../WishList/wishContext";
 import { useProduct } from "./productContext";
 import { getFilteredData } from "../Filter/filter";
 import { getSortedData } from "../Filter/sort";
-import { ToastContainer, toast } from "react-toastify";
-import { DataLoader } from "../DataLoader";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { addToCartHandler } from "../ServerCalls/ServerCalls";
+import { wishlistHandler } from "../ServerCalls/ServerCalls";
+import { getTrimmedTitle, isAddedInList } from "../utils/utils";
 
 export default function ProductList() {
   const [productsData, setProductsData] = useState([]);
@@ -21,10 +23,7 @@ export default function ProductList() {
     showInventoryAll,
     showFastDeliveryOnly
   } = useProduct();
-  // const [isSelected, setSelected] = useState(false);
   const [isLoading, setLoader] = useState(false);
-
-  // const toggle = () => setSelected(!isSelected);
 
   useEffect(() => {
     (async function () {
@@ -33,8 +32,6 @@ export default function ProductList() {
         const {
           data: { products: dataFromServer }
         } = await axios.get(`${BACKEND_URL}products`);
-        // console.log(dataFromServer);
-
         setProductsData(dataFromServer);
         setLoader(false);
       } catch (err) {
@@ -49,89 +46,6 @@ export default function ProductList() {
     showInventoryAll,
     showFastDeliveryOnly
   );
-  // https://lingokart-api.aneenasam.repl.co/cart
-  const addToCartHandler = async (product) => {
-    const itemFound = itemsInCart.find((item) => item._id === product._id);
-    // console.log("wish search", itemFound);
-
-    if (itemFound) {
-      toast.dark("Item already present in cart", {
-        position: "bottom-left",
-        autoClose: 3000,
-        hideProgressBar: true
-      });
-    } else {
-      try {
-        const { data } = await axios.post(`${BACKEND_URL}cart`, {
-          _id: product._id,
-          quantity: 1
-        });
-        // console.log("posted data", data);
-        // console.log("id is", data.product);
-        product.quantity = data.cartItem.quantity;
-        if (data.success) {
-          cartDispatch({
-            type: "ADD_TO_CART",
-            payLoad: product
-          });
-          toast.success("Added to cart", {
-            position: "bottom-left",
-            autoClose: 3000,
-            hideProgressBar: true
-          });
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    return (
-      <>
-        <DataLoader />
-      </>
-    );
-  };
-
-  const wishlistHandler = async (product) => {
-    console.log("Incoming data", product);
-
-    const itemFound = wishList.find((item) => item._id === product._id);
-    console.log("wish search", itemFound);
-
-    if (itemFound) {
-      try {
-        const { data } = await axios.delete(
-          `${BACKEND_URL}wishlist/${product._id}`
-        );
-        if (data.success) {
-          wishDispatch({ type: "REMOVE", payLoad: product._id });
-          toast.dark("Item removed from wishlist", {
-            position: "bottom-left",
-            autoClose: 3000,
-            hideProgressBar: true
-          });
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    } else {
-      try {
-        const { data } = await axios.post(`${BACKEND_URL}wishlist`, {
-          _id: product._id
-        });
-        // console.log("posted data", data);
-        if (data.success) {
-          wishDispatch({ type: "ADD_TO_WISHLIST", payLoad: product });
-          toast.success("Item added to wish list", {
-            position: "bottom-left",
-            autoClose: 3000,
-            hideProgressBar: true
-          });
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    }
-  };
 
   return (
     <section className="container">
@@ -206,14 +120,19 @@ export default function ProductList() {
                     />
                   </div>
                   <i
-                    className="fa fa-heart wish-icon"
+                    className={
+                      isAddedInList(data._id, wishList)
+                        ? "fa fa-heart wish-icon wish-icon--selected"
+                        : "fa fa-heart wish-icon"
+                    }
                     aria-hidden="true"
-                    onClick={() => wishlistHandler(data)}
-                    // onClick={() => <WishlistHandler data={data} />}
+                    onClick={() =>
+                      wishlistHandler(data, wishList, wishDispatch)
+                    }
                   ></i>
                   <div className="card__desc">
                     <h1>
-                      <strong>{data.name}</strong>
+                      <strong>{getTrimmedTitle(data.name)}</strong>
                     </h1>
                     <div className="star-count">
                       <p className="star-count__star">{data.ratings}</p>
@@ -242,11 +161,9 @@ export default function ProductList() {
                           ? "btn btn--primary btn--cart"
                           : "btn btn--primary btn--cart disabled"
                       }
-                      // className="btn btn--primary btn--cart"
-                      // onClick={() => {
-                      //   cartDispatch({ type: "ADD_TO_CART", payLoad: data._id });
-                      // }}
-                      onClick={() => addToCartHandler(data)}
+                      onClick={() =>
+                        addToCartHandler(data, itemsInCart, cartDispatch)
+                      }
                     >
                       Add to cart {"   "}
                       <i className="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -255,7 +172,6 @@ export default function ProductList() {
 
                     {}
                   </div>
-                  <ToastContainer />
                 </div>
               );
             })
@@ -265,6 +181,7 @@ export default function ProductList() {
             </div>
           )}
         </div>
+        <ToastContainer style={{ fontSize: "medium" }} />
       </div>
     </section>
   );

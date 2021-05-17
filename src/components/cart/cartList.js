@@ -1,12 +1,15 @@
 import { useCart } from "./cartContext";
 import { useWishList } from "../WishList/wishContext";
 import { Header } from "../header";
-import { BACKEND_URL } from "../backendUrl";
-import axios from "axios";
 import "./cartStyles.css";
-import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import { DataLoader } from "../DataLoader";
+import { ToastContainer } from "react-toastify";
+import {
+  wishlistHandler,
+  CartUpdate,
+  deleteCartItem
+} from "../ServerCalls/ServerCalls";
+import { isAddedInList } from "../utils/utils";
+import { EmptyCart } from "./EmptyCart";
 
 export const Cart = () => {
   const { itemsInCart, dispatch: cartDispatch } = useCart();
@@ -15,118 +18,11 @@ export const Cart = () => {
   const totalReducer = () =>
     itemsInCart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
-  const CartUpdate = async ({ type, payLoad }) => {
-    const _id = payLoad;
-    const itemFound = itemsInCart.find((item) => item._id === _id);
-    let updatedQuantity;
-    if (type === "INCREMENT") {
-      updatedQuantity = itemFound.quantity + 1;
-    } else if (type === "DECREMENT") {
-      updatedQuantity = itemFound.quantity - 1;
-      // return updatedQuantity === 0 && deleteCartItem(_id);
-      if (updatedQuantity === 0) {
-        return deleteCartItem(_id);
-      }
-    }
-    try {
-      // setQtyUpdate(false);
-      toast.success(`Quantity is getting updated to ${updatedQuantity} ...`, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: true
-      });
-      const {
-        data: { success, cartItem }
-      } = await axios.post(`${BACKEND_URL}cart/${_id}`, {
-        _id: _id,
-        quantity: updatedQuantity
-      });
-      payLoad = {
-        _id: _id,
-        quantity: cartItem.quantity
-      };
-      console.log("updated data", success, cartItem);
-      console.log("passing load is", payLoad);
-      // setQtyUpdate(true);
-
-      if (success) {
-        cartDispatch({ type: "UPDATE", payLoad: payLoad });
-      }
-    } catch (err) {
-      console.error("Error Occured", err);
-    }
-    return (
-      <>
-        <DataLoader />
-      </>
-    );
-  };
-
-  const deleteCartItem = async (_id) => {
-    try {
-      console.log("inside delete");
-      const { data } = await axios.delete(`${BACKEND_URL}cart/${_id}`);
-      console.log(data);
-      cartDispatch({ type: "REMOVE", payLoad: _id });
-      if (data.success) {
-        toast.dark("Removed from cart", {
-          position: "bottom-left",
-          autoClose: 3000,
-          hideProgressBar: true
-        });
-      }
-    } catch (err) {
-      console.error("Error happened", err);
-    }
-  };
-
-  const wishlistHandler = async (product) => {
-    console.log("Incoming data", product);
-
-    const itemFound = wishList.find((item) => item._id === product._id);
-    console.log("wish search", itemFound);
-
-    if (itemFound) {
-      try {
-        const { data } = await axios.delete(
-          `${BACKEND_URL}wishlist/${product._id}`
-        );
-        if (data.success) {
-          wishDispatch({ type: "REMOVE", payLoad: product._id });
-          toast.dark("Item removed from wishlist", {
-            position: "bottom-left",
-            autoClose: 3000,
-            hideProgressBar: true
-          });
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    } else {
-      try {
-        const { data } = await axios.post(`${BACKEND_URL}wishlist`, {
-          _id: product._id
-        });
-        // console.log("posted data", data);
-        if (data.success) {
-          wishDispatch({ type: "ADD_TO_WISHLIST", payLoad: product });
-          toast.success("Item added to wish list", {
-            position: "bottom-left",
-            autoClose: 3000,
-            hideProgressBar: true
-          });
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    }
-  };
-
   return (
     <section className="cart-container">
       <div>
         <Header />
-        <h1 class="heading center fs-h1">My Cart</h1>
+
         {console.log("items in cart", { itemsInCart })}
         <div className="aside cart-total center">
           {itemsInCart.length !== 0 && (
@@ -151,12 +47,15 @@ export const Cart = () => {
             </div>
           )}
         </div>
-        <div className="container__main">
-          <div className="card-container">
-            {itemsInCart.length === 0 ? (
-              <p className="para--lead">Ah! Looks like your Cart is empty</p>
-            ) : (
-              itemsInCart.map((data) => (
+        {itemsInCart.length === 0 ? (
+          <p className="para--lead">
+            <EmptyCart />
+          </p>
+        ) : (
+          <div className="container__main">
+            <h1 class="heading center fs-h1">My Cart</h1>
+            <div className="card-container">
+              {itemsInCart.map((data) => (
                 <div className="card card--display" Key={data._id}>
                   <div className="card__thumbnail">
                     <img
@@ -166,9 +65,15 @@ export const Cart = () => {
                     />
                   </div>
                   <i
-                    className="fa fa-heart wish-icon"
+                    className={
+                      isAddedInList(data._id, wishList)
+                        ? "fa fa-heart wish-icon wish-icon--selected"
+                        : "fa fa-heart wish-icon"
+                    }
                     aria-hidden="true"
-                    onClick={() => wishlistHandler(data)}
+                    onClick={() =>
+                      wishlistHandler(data, wishList, wishDispatch)
+                    }
                   ></i>
                   <div className="card__desc">
                     <h1>
@@ -190,29 +95,31 @@ export const Cart = () => {
                       class="fa fa-plus"
                       aria-hidden="true"
                       onClick={() =>
-                        CartUpdate({ type: "INCREMENT", payLoad: data._id })
+                        CartUpdate(
+                          { type: "INCREMENT", payLoad: data._id },
+                          data.name,
+                          itemsInCart,
+                          cartDispatch
+                        )
                       }
                     ></i>
-                    <div className="card__quantity">
-                      {/* {isQtyUpdate
-                      d ? (
-                        data.quantity
-                      ) : (
-                        <i class="fa fa-spinner fa-pulse qtySpinner fa-fw"></i>
-                      )} */}
-                      {data.quantity}
-                    </div>
+                    <div className="card__quantity">{data.quantity}</div>
                     <i
                       class="fa fa-minus"
                       aria-hidden="true"
                       onClick={() =>
-                        CartUpdate({ type: "DECREMENT", payLoad: data._id })
+                        CartUpdate(
+                          { type: "DECREMENT", payLoad: data._id },
+                          data.name,
+                          itemsInCart,
+                          cartDispatch
+                        )
                       }
                     ></i>
                     <button
                       className="btn btn--primary  btn--trash"
                       onClick={
-                        () => deleteCartItem(data._id)
+                        () => deleteCartItem(data._id, data.name, cartDispatch)
                         // cartDispatch({ type: "REMOVE", payLoad: _id })
                       }
                     >
@@ -221,11 +128,11 @@ export const Cart = () => {
                     </button>
                   </div>
                 </div>
-              ))
-            )}
+              ))}
+            </div>
+            <ToastContainer style={{ fontSize: "medium" }} />
           </div>
-          <ToastContainer style={{ fontSize: "medium" }} />
-        </div>
+        )}
       </div>
     </section>
   );

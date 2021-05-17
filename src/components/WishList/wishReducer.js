@@ -16,16 +16,7 @@ export const wishReducer = (state, action) => {
           (wish) => Number(wish._id) === Number(action.payLoad._id)
         )
           ? state.wishList.filter((wish) => wish._id !== action.payLoad._id)
-          : state.wishList.concat({
-              _id: action.payLoad._id,
-              name: action.payLoad.name,
-              imageUrl: action.payLoad.imageUrl,
-              price: action.payLoad.price,
-              inStock: action.payLoad.inStock,
-              fastDelivery: action.payLoad.fastDelivery,
-              ratings: action.payLoad.ratings,
-              offer: action.payLoad.offer
-            })
+          : [...state.wishList, action.payLoad]
       };
     case "REMOVE":
       return {

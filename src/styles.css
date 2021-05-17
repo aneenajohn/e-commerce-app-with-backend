@@ -22,9 +22,15 @@ body {
   align-items: center;
 }
 
-.toastBody {
-  font-size: 2rem;
+/* .image-body{
+  width:100vw;
+  height:100vh;
 }
+
+.background-container {
+  width: 100vw;
+  height: 100vh;
+} */
 
 /* Header */
 .head {
@@ -192,10 +198,13 @@ body {
   border-radius: 50%;
   background: #e5e7eb;
 }
-.wish-icon:active {
+/* .wish-icon:active {
+  color: var(--primary-color);
+} */
+
+.wish-icon--selected {
   color: var(--primary-color);
 }
-
 .card__details {
   font-size: small;
 }
@@ -240,6 +249,17 @@ body {
   display: grid;
   width: 100%;
   height: 100%;
+}
+
+.image-body {
+  z-index: 1;
+  background-image: url("https://wireandswitch.com/empty-cart-dM4.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
 }
 
 /* Mobile screens */

@@ -1,0 +1,12 @@
+.empty-cart {
+  background-image: url("https://i.pinimg.com/originals/81/c4/fc/81c4fc9a4c06cf57abf23606689f7426.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  padding: 0;
+}
+
+.content {
+  padding: 2rem;
+}

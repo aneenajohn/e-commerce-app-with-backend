@@ -1,0 +1,20 @@
+body {
+  padding: 0rem;
+  margin: 0;
+}
+.content {
+  text-align: center;
+  padding: 4rem;
+}
+
+/* .image-body {
+  background-image: url("https://www.zolut.com/img/wishlist_empty.png?1618462676");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+} */
+
+/* .container__main {
+  padding: 0rem;
+  margin: 0;
+} */
