@@ -10,17 +10,7 @@ export const cartReducer = (state, action) => {
           (item) => Number(item._id) === Number(action.payLoad._id)
         )
           ? state.itemsInCart.filter((item) => item._id !== action.payLoad._id)
-          : state.itemsInCart.concat({
-              _id: action.payLoad._id,
-              name: action.payLoad.name,
-              quantity: 1,
-              imageUrl: action.payLoad.imageUrl,
-              price: action.payLoad.price,
-              inStock: action.payLoad.inStock,
-              fastDelivery: action.payLoad.fastDelivery,
-              ratings: action.payLoad.ratings,
-              offer: action.payLoad.offer
-            })
+          : [...state.itemsInCart, action.payLoad]
       };
     case "UPDATE":
       return {

@@ -11,7 +11,7 @@ import { DataLoader } from "../DataLoader";
 export const Cart = () => {
   const { itemsInCart, dispatch: cartDispatch } = useCart();
   const { dispatch: wishDispatch, wishList } = useWishList();
-  const [isQtyUpdated, setQtyUpdate] = useState(true);
+  // const [isQtyUpdated, setQtyUpdate] = useState(true);
   const totalReducer = () =>
     itemsInCart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
@@ -29,18 +29,27 @@ export const Cart = () => {
       }
     }
     try {
-      setQtyUpdate(false);
-      const { data } = await axios.post(`${BACKEND_URL}cart/${_id}`, {
+      // setQtyUpdate(false);
+      toast.success(`Quantity is getting updated to ${updatedQuantity} ...`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true
+      });
+      const {
+        data: { success, cartItem }
+      } = await axios.post(`${BACKEND_URL}cart/${_id}`, {
         _id: _id,
         quantity: updatedQuantity
       });
       payLoad = {
         _id: _id,
-        quantity: updatedQuantity
+        quantity: cartItem.quantity
       };
+      console.log("updated data", success, cartItem);
       console.log("passing load is", payLoad);
-      setQtyUpdate(true);
-      if (data.success) {
+      // setQtyUpdate(true);
+
+      if (success) {
         cartDispatch({ type: "UPDATE", payLoad: payLoad });
       }
     } catch (err) {
@@ -127,17 +136,14 @@ export const Cart = () => {
                 {""}
                 {totalReducer()}
               </div>
-              <div className="para">
-                <b>Discount 20%:</b>
-                {""}
-                {""}
-                {0.2 * totalReducer()}
-              </div>
+              <p className="para">
+                <strong>Delivery Charges</strong> :Free
+              </p>
               <div className="para">
                 <b>Amount to be paid:</b>
                 {""}
                 {""}
-                {totalReducer() - 0.2 * totalReducer()}
+                {totalReducer()}
               </div>
               <button className="btn btn--primary btn--buy-now">
                 Order Now
@@ -188,11 +194,13 @@ export const Cart = () => {
                       }
                     ></i>
                     <div className="card__quantity">
-                      {isQtyUpdated ? (
+                      {/* {isQtyUpdate
+                      d ? (
                         data.quantity
                       ) : (
                         <i class="fa fa-spinner fa-pulse qtySpinner fa-fw"></i>
-                      )}
+                      )} */}
+                      {data.quantity}
                     </div>
                     <i
                       class="fa fa-minus"
@@ -216,7 +224,7 @@ export const Cart = () => {
               ))
             )}
           </div>
-          <ToastContainer />
+          <ToastContainer style={{ fontSize: "medium" }} />
         </div>
       </div>
     </section>

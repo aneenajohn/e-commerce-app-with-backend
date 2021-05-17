@@ -68,9 +68,12 @@ export default function ProductList() {
         });
         // console.log("posted data", data);
         // console.log("id is", data.product);
-
+        product.quantity = data.cartItem.quantity;
         if (data.success) {
-          cartDispatch({ type: "ADD_TO_CART", payLoad: product });
+          cartDispatch({
+            type: "ADD_TO_CART",
+            payLoad: product
+          });
           toast.success("Added to cart", {
             position: "bottom-left",
             autoClose: 3000,
