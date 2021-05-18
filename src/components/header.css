@@ -2,11 +2,11 @@
   background: var(--primary-color);
 }
 
-.nav__menu {
+.menu {
   top: 16%;
   width: 50%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
   align-items: center;
   overflow: auto;
 }
