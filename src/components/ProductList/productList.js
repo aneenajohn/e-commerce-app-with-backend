@@ -53,59 +53,84 @@ export default function ProductList() {
         <Header />
       </div>
       <div className="container__aside">
-        <fieldset>
-          <legend class="para">Sort By</legend>
-          <label class="para para--label">
-            <input
-              type="radio"
-              name="sort"
-              onChange={() =>
-                productDispatch({ type: "SORT", payLoad: "PRICE_HIGH_TO_LOW" })
-              }
-              checked={sortBy && sortBy === "PRICE_HIGH_TO_LOW"}
-            ></input>
-            Price - High to low
-          </label>
-          <br />
-          <label class="para para--label">
-            <input
-              type="radio"
-              name="sort"
-              onChange={() =>
-                productDispatch({ type: "SORT", payLoad: "PRICE_LOW_TO_HIGH" })
-              }
-              checked={sortBy && sortBy === "PRICE_LOW_TO_HIGH"}
-            ></input>
-            Price - Low to high
-          </label>
-        </fieldset>
-        <fieldset>
-          <legend class="para">Availability</legend>
-          <label class="para para--label">
-            <input
-              type="checkbox"
-              checked={showInventoryAll}
-              onChange={() => productDispatch({ type: "TOGGLE_INVENTORY" })}
-            ></input>
-            Include out of stock
-          </label>
-          <br />
-          <label class="para para--label">
-            <input
-              type="checkbox"
-              checked={showFastDeliveryOnly}
-              onChange={() => productDispatch({ type: "TOGGLE_DELIVERY" })}
-            ></input>
-            Only fast Delivery
-          </label>
-        </fieldset>
-        <div
-          class="btn btn--primary filter-label"
-          onClick={() => productDispatch({ type: "CLEAR_FILTER" })}
-        >
-          Clear Filter
+        <div className="filter">
+          <h1 className="filter-title">Filters</h1>
+          <p
+            className="filter--clear"
+            onClick={() => productDispatch({ type: "CLEAR_FILTER" })}
+          >
+            CLEAR ALL
+          </p>
+          <div className="filter-head">
+            <strong>SORT BY</strong>
+          </div>
+          <div className="filter-content-container">
+            <label>
+              <input
+                type="radio"
+                name="sort"
+                className="filter-content"
+                onChange={() =>
+                  productDispatch({
+                    type: "SORT",
+                    payLoad: "PRICE_HIGH_TO_LOW"
+                  })
+                }
+                checked={sortBy && sortBy === "PRICE_HIGH_TO_LOW"}
+              ></input>
+              Price - High to low
+            </label>
+            <br />
+            <label>
+              <input
+                type="radio"
+                name="sort"
+                className="filter-content"
+                onChange={() =>
+                  productDispatch({
+                    type: "SORT",
+                    payLoad: "PRICE_LOW_TO_HIGH"
+                  })
+                }
+                checked={sortBy && sortBy === "PRICE_LOW_TO_HIGH"}
+              ></input>
+              Price - Low to high
+            </label>
+          </div>
+
+          <div className="filter-head">
+            <strong>AVAILABILITY</strong>
+          </div>
+          <div className="filter-content-container">
+            <label>
+              <input
+                type="checkbox"
+                className="filter-content"
+                checked={showInventoryAll}
+                onChange={() => productDispatch({ type: "TOGGLE_INVENTORY" })}
+              ></input>
+              Include out of stock
+            </label>
+            <br />
+            <label>
+              <input
+                type="checkbox"
+                className="filter-content"
+                checked={showFastDeliveryOnly}
+                onChange={() => productDispatch({ type: "TOGGLE_DELIVERY" })}
+              ></input>
+              Only fast Delivery
+            </label>
+          </div>
+          <div
+            class="btn btn--primary filter-label"
+            onClick={() => productDispatch({ type: "CLEAR_FILTER" })}
+          >
+            Clear Filter
+          </div>
         </div>
       </div>
+
       <div className="container__main">
         <div className="card-container">
           {!isLoading ? (
