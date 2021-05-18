@@ -10,3 +10,17 @@
   align-items: center;
   overflow: auto;
 }
+
+.app-home {
+  margin-left: 0.5rem;
+}
+
+@media screen and (max-width: 640px) {
+  .cart {
+    margin-right: 1rem;
+  }
+
+  .icon-badge .icon-badge__cart {
+    right: -20%;
+  }
+}

@@ -11,7 +11,7 @@ export const Header = () => {
   return (
     <nav className="head">
       <Link to="/">
-        <p className="para--lead">Lingokart</p>
+        <p className="para--lead app-home">Lingokart</p>
       </Link>
       <ul className="menu">
         {/* <li className="nav__item">
@@ -52,35 +52,6 @@ export const Header = () => {
           </Link>
         </li>
       </ul>
-      {/* <div className="mobile-icons">
-        <Link to="/wishlist" state={{ wishList }}>
-          <div className="nav__link">
-            {wishList.length === 0 ? (
-              <i className="fa fa-heart wish-header" aria-hidden="true"></i>
-            ) : (
-              <div class="icon-badge">
-                <i class="fa fa-heart wish-header" aria-hidden="true"></i>
-                <span class="icon-badge__wish">{wishList.length}</span>
-              </div>
-            )}
-          </div>
-        </Link>
-        <Link to="/cart" state={{ itemsInCart }}>
-            <div className="nav__link">
-              {itemsInCart.length === 0 ? (
-                <i
-                  className="fa fa-shopping-cart fa-shopping-cart--nav"
-                  aria-hidden="true"
-                ></i>
-              ) : (
-                <div class="icon-badge">
-                  <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                  <span class="icon-badge__cart">{itemsInCart.length}</span>
-                </div>
-              )}
-            </div>
-          </Link>
-      </div> */}
     </nav>
   );
 };
