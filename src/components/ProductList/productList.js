@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { addToCartHandler } from "../ServerCalls/ServerCalls";
 import { wishlistHandler } from "../ServerCalls/ServerCalls";
 import { getTrimmedTitle, isAddedInList } from "../utils/utils";
+import "./productList-styles.css";
 
 export default function ProductList() {
   const [productsData, setProductsData] = useState([]);

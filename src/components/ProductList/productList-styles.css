@@ -1,0 +1,30 @@
+/* On screens that are 640px wide or less,do the following*/
+@media screen and (max-width: 640px) {
+  .container {
+    grid-template-areas:
+      "header"
+      "main";
+    grid-template-rows: 50px 2fr;
+    grid-template-columns: 1fr;
+  }
+  .card-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .container__aside {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1007px) {
+  .card-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .filter--clear {
+    left: 55%;
+  }
+}
