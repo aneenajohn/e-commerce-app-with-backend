@@ -11,11 +11,12 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addToCartHandler } from "../ServerCalls/ServerCalls";
 import { wishlistHandler } from "../ServerCalls/ServerCalls";
-import { getTrimmedTitle, isAddedInList } from "../utils/utils";
+import { getTrimmedTitle, isAddedInList, toggleActive } from "../utils/utils";
 import "./productList-styles.css";
 
 export default function ProductList() {
   const [productsData, setProductsData] = useState([]);
+  const [isSelected, setSelected] = useState(false);
   const { dispatch: cartDispatch, itemsInCart } = useCart();
   const { dispatch: wishDispatch, wishList } = useWishList();
   const {
@@ -54,7 +55,9 @@ export default function ProductList() {
       <div className="container__head">
         <Header />
       </div>
-      <div className="container__aside">
+      <div
+        className={isSelected ? "container__aside active" : "container__aside"}
+      >
         <div className="filter">
           <h1 className="filter-title">Filters</h1>
           <p
@@ -282,6 +285,14 @@ export default function ProductList() {
           )}
         </div>
         <ToastContainer style={{ fontSize: "medium" }} />
+        <div
+          className={isSelected ? "product-filter active" : "product-filter"}
+          onClick={() => toggleActive(isSelected, setSelected)}
+        >
+          <div className="fab">
+            <i className="fa fa-filter fab__icon" aria-hidden="true"></i>
+          </div>
+        </div>
       </div>
     </section>
   );

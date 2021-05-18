@@ -15,7 +15,7 @@ export const Cart = () => {
   const { itemsInCart, dispatch: cartDispatch } = useCart();
   const { dispatch: wishDispatch, wishList } = useWishList();
   // const [isQtyUpdated, setQtyUpdate] = useState(true);
-  const totalReducer = () =>
+  const totalPrice = () =>
     itemsInCart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
@@ -24,13 +24,14 @@ export const Cart = () => {
         <Header />
 
         {console.log("items in cart", { itemsInCart })}
+        <br />
         <div className="aside cart-total center">
           {itemsInCart.length !== 0 && (
             <div className="bill">
               <div className="para total">
                 <b>Total:</b> {""}
                 {""}
-                {totalReducer()}
+                {totalPrice()}
               </div>
               <p className="para">
                 <strong>Delivery Charges</strong> :Free
@@ -39,7 +40,7 @@ export const Cart = () => {
                 <b>Amount to be paid:</b>
                 {""}
                 {""}
-                {totalReducer()}
+                {totalPrice()}
               </div>
               <button className="btn btn--primary btn--buy-now">
                 Order Now

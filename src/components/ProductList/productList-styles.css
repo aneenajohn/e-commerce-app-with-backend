@@ -4,7 +4,7 @@
     grid-template-areas:
       "header"
       "main";
-    grid-template-rows: 0.2fr 2fr;
+    grid-template-rows: 0.2fr 3fr;
     grid-template-columns: 1fr;
   }
   .card-container {
@@ -15,7 +15,26 @@
     align-items: center;
   }
   .container__aside {
+    width: 90%;
     display: none;
+  }
+
+  .container__aside.active {
+    z-index: 1;
+    width: 50%;
+    display: inline-block;
+    position: fixed;
+    left: -100%;
+    top: 8.2%;
+  }
+  .product-filter {
+    position: fixed;
+    left: 80%;
+    bottom: 9%;
+    z-index: 1;
+  }
+  .fab {
+    display: block;
   }
 }
 
