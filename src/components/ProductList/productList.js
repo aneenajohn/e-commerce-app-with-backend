@@ -41,6 +41,7 @@ export default function ProductList() {
   }, []);
 
   const sortedData = getSortedData(productsData, sortBy);
+
   const filteredData = getFilteredData(
     sortedData,
     showInventoryAll,
@@ -97,7 +98,86 @@ export default function ProductList() {
               Price - Low to high
             </label>
           </div>
-
+          <div className="filter-head">
+            <strong>LANGUAGE</strong>
+          </div>
+          <div className="filter-content-container">
+            <label>
+              <input
+                type="radio"
+                name="sort"
+                className="filter-content"
+                checked={sortBy && sortBy === "All"}
+                onChange={() =>
+                  productDispatch({
+                    type: "SORT",
+                    payLoad: "All"
+                  })
+                }
+              ></input>
+              All
+            </label>
+            <br />
+            <label>
+              <input
+                type="radio"
+                name="sort"
+                className="filter-content"
+                onChange={() =>
+                  productDispatch({
+                    type: "SORT",
+                    payLoad: "en"
+                  })
+                }
+              ></input>
+              English
+            </label>
+            <br />
+            <label>
+              <input
+                type="radio"
+                name="sort"
+                className="filter-content"
+                onChange={() =>
+                  productDispatch({
+                    type: "SORT",
+                    payLoad: "es"
+                  })
+                }
+              ></input>
+              Spanish
+            </label>
+            <br />
+            <label>
+              <input
+                type="radio"
+                name="sort"
+                className="filter-content"
+                onChange={() =>
+                  productDispatch({
+                    type: "SORT",
+                    payLoad: "ta"
+                  })
+                }
+              ></input>
+              Tamil
+            </label>
+            <br />
+            <label>
+              <input
+                type="radio"
+                name="sort"
+                className="filter-content"
+                onChange={() =>
+                  productDispatch({
+                    type: "SORT",
+                    payLoad: "hi"
+                  })
+                }
+              ></input>
+              Hindi
+            </label>
+          </div>
           <div className="filter-head">
             <strong>AVAILABILITY</strong>
           </div>
@@ -121,12 +201,6 @@ export default function ProductList() {
               ></input>
               Only fast Delivery
             </label>
-          </div>
-          <div
-            class="btn btn--primary filter-label"
-            onClick={() => productDispatch({ type: "CLEAR_FILTER" })}
-          >
-            Clear Filter
           </div>
         </div>
       </div>

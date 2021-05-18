@@ -6,7 +6,7 @@ export const ProductContext = createContext();
 export const ProductProvider = ({ children }) => {
   const [state, dispatch] = useReducer(productReducer, {
     products: [],
-    sortBy: null,
+    sortBy: "All",
     showInventoryAll: true,
     showFastDeliveryOnly: false
   });

@@ -3,13 +3,32 @@
 export function getSortedData(productList, sortBy) {
   // const { sortBy } = useProduct();
   console.log("sortBy inside sorting function", sortBy);
-  if (sortBy && sortBy === "PRICE_HIGH_TO_LOW") {
-    console.log("inside high to low");
-    return productList.sort((a, b) => b["price"] - a["price"]);
+  // if (sortBy && sortBy === "PRICE_HIGH_TO_LOW") {
+  //   console.log("inside high to low");
+  //   return productList.sort((a, b) => b["price"] - a["price"]);
+  // }
+  // if (sortBy && sortBy === "PRICE_LOW_TO_HIGH") {
+  //   return productList.sort((a, b) => a.price - b.price);
+  // }
+  // console.log("out of sort");
+  // return productList;
+
+  switch (sortBy) {
+    case "PRICE_HIGH_TO_LOW":
+      return productList.sort((a, b) => b["price"] - a["price"]);
+    case "PRICE_LOW_TO_HIGH":
+      return productList.sort((a, b) => a.price - b.price);
+    case "en":
+      return productList.filter((product) => product.language === "en");
+    case "es":
+      return productList.filter((product) => product.language === "es");
+    case "hi":
+      return productList.filter((product) => product.language === "hi");
+    case "ta":
+      return productList.filter((product) => product.language === "ta");
+    case "All":
+      return productList;
+    default:
+      return productList;
   }
-  if (sortBy && sortBy === "PRICE_LOW_TO_HIGH") {
-    return productList.sort((a, b) => a.price - b.price);
-  }
-  console.log("out of sort");
-  return productList;
 }

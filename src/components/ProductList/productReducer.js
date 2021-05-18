@@ -3,7 +3,8 @@ export const productReducer = (state, action) => {
   switch (action.type) {
     case "SORT":
       return { ...state, sortBy: action.payLoad };
-
+    case "LANGUAGE":
+      return { ...state, language: action.payLoad };
     case "TOGGLE_INVENTORY":
       return { ...state, showInventoryAll: !state.showInventoryAll };
 
