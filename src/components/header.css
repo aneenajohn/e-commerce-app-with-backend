@@ -18,9 +18,20 @@
 @media screen and (max-width: 640px) {
   .cart {
     margin-right: 1rem;
+    color: var(--ow-font-color);
   }
 
   .icon-badge .icon-badge__cart {
     right: -20%;
+    background: var(--font-color);
+    color: var(--ow-font-color);
+  }
+  .fa-heart {
+    color: var(--ow-font-color);
+  }
+
+  .icon-badge .icon-badge__wish {
+    background: var(--font-color);
+    color: var(--ow-font-color);
   }
 }
