@@ -9,8 +9,8 @@ import { getFilteredData } from "../Filter/filter";
 import { getSortedData } from "../Filter/sort";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { addToCartHandler } from "../ServerCalls/ServerCalls";
-import { wishlistHandler } from "../ServerCalls/ServerCalls";
+// import { addToCartHandler } from "../ServerCalls/ServerCalls";
+import { addToCartHandler, wishlistHandler } from "../ServerCalls/ServerCalls";
 import { getTrimmedTitle, isAddedInList, toggleActive } from "../utils/utils";
 import "./productList-styles.css";
 
