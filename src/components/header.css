@@ -15,19 +15,31 @@
   margin-left: 0.5rem;
 }
 
+.login-text {
+  margin-right: 0.6rem;
+}
+
 @media screen and (max-width: 640px) {
   .cart {
     margin-right: 1rem;
   }
 
   .icon-badge .icon-badge__cart {
-    right: -20%;
+    right: -25%;
     background: var(--font-color);
     color: var(--ow-font-color);
   }
 
   .icon-badge .icon-badge__wish {
+    right: 0%;
     background: var(--font-color);
     color: var(--ow-font-color);
+  }
+
+  .login-text {
+    color: var(--ow-font-color);
+  }
+  .login-text:hover {
+    color: var(--font-color);
   }
 }

@@ -51,6 +51,12 @@ export const Header = () => {
             </div>
           </Link>
         </li>
+
+        <li className="nav__item">
+          <Link to="/login">
+            <div className="nav__link login-text"> Login</div>
+          </Link>
+        </li>
       </ul>
     </nav>
   );

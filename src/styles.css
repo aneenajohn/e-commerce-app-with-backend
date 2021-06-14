@@ -34,7 +34,7 @@ body {
 
 .wish-header {
   padding: 1rem;
-  margin-right: 2rem;
+  /* margin-right: 1rem; */
 }
 .cart {
   font-size: 25px;
@@ -65,10 +65,11 @@ body {
   background: var(--font-color);
   color: var(--ow-font-color);
   border-radius: 50%;
-  padding: 1.5px 1.5px;
+  padding: 1px 4px;
+  /* padding: 1.5px 1.5px; */
   border: 1.5px solid var(--primary-color);
   position: absolute;
-  right: 28%;
+  right: -18%;
   bottom: 40%;
 }
 

@@ -1,0 +1,20 @@
+.inputForm {
+  width: 100vw;
+  height: calc(100vh - 5rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* margin: 5rem; */
+}
+
+.form__input + .email {
+  width: inherit;
+}
+
+.form {
+  margin: 1rem;
+}
+.login {
+  font-size: small;
+}
