@@ -2,12 +2,35 @@ import { useCart } from "./cart/cartContext";
 import { Link, useLocation } from "react-router-dom";
 import { useWishList } from "./WishList/wishContext";
 import "./header.css";
+import { useAuth } from "./Context/authProvider";
+import { ADD_TO_CART, SET_LOGOUT, ADD_TO_WISHLIST } from "./utils/constants";
+
 export const Header = () => {
-  const { itemsInCart } = useCart();
-  const { wishList } = useWishList();
+  const { itemsInCart, dispatch: cartDispatch } = useCart();
+  const { wishList, dispatch: wishDispatch } = useWishList();
   const location = useLocation();
   console.log(location.state);
   // console.log("wishlist in header", wishList);
+
+  const {
+    authState: { isLoggedIn, userToken },
+    authDispatch
+  } = useAuth();
+  // const {isLoggedIn,userToken} = authState;
+  console.log("isLoggedIn: ", isLoggedIn, "userToken: ", userToken);
+
+  function logouthandler() {
+    localStorage?.removeItem("login");
+    authDispatch({
+      type: SET_LOGOUT
+    });
+    cartDispatch({
+      type: ADD_TO_CART,
+      payLoad: []
+    });
+    wishDispatch({ type: ADD_TO_WISHLIST, payLoad: [] });
+  }
+
   return (
     <nav className="head">
       <Link to="/">
@@ -53,9 +76,15 @@ export const Header = () => {
         </li>
 
         <li className="nav__item">
-          <Link to="/login">
-            <div className="nav__link login-text"> Login</div>
-          </Link>
+          {isLoggedIn ? (
+            <p className="para" onClick={() => logouthandler}>
+              Logout
+            </p>
+          ) : (
+            <Link to="/login">
+              <div className="nav__link login-text"> Login</div>
+            </Link>
+          )}
         </li>
       </ul>
     </nav>

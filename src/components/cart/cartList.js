@@ -10,10 +10,14 @@ import {
 } from "../ServerCalls/ServerCalls";
 import { isAddedInList } from "../utils/utils";
 import { EmptyCart } from "./EmptyCart";
+import { useAuth } from "../Context/authProvider";
 
 export const Cart = () => {
   const { itemsInCart, dispatch: cartDispatch } = useCart();
   const { dispatch: wishDispatch, wishList } = useWishList();
+  const {
+    authState: { userToken }
+  } = useAuth();
   // const [isQtyUpdated, setQtyUpdate] = useState(true);
   const totalPrice = () =>
     itemsInCart.reduce((acc, item) => acc + item.price * item.quantity, 0);
@@ -22,7 +26,6 @@ export const Cart = () => {
     <section className="cart-container">
       <div>
         <Header />
-
         {console.log("items in cart", { itemsInCart })}
         <br />
         <div className="aside cart-total center">
@@ -73,7 +76,7 @@ export const Cart = () => {
                     }
                     aria-hidden="true"
                     onClick={() =>
-                      wishlistHandler(data, wishList, wishDispatch)
+                      wishlistHandler(data, wishList, wishDispatch, userToken)
                     }
                   ></i>
                   <div className="card__desc">
@@ -100,7 +103,8 @@ export const Cart = () => {
                           { type: "INCREMENT", payLoad: data._id },
                           data.name,
                           itemsInCart,
-                          cartDispatch
+                          cartDispatch,
+                          userToken
                         )
                       }
                     ></i>
@@ -113,14 +117,21 @@ export const Cart = () => {
                           { type: "DECREMENT", payLoad: data._id },
                           data.name,
                           itemsInCart,
-                          cartDispatch
+                          cartDispatch,
+                          userToken
                         )
                       }
                     ></i>
                     <button
                       className="btn btn--primary  btn--trash"
                       onClick={
-                        () => deleteCartItem(data._id, data.name, cartDispatch)
+                        () =>
+                          deleteCartItem(
+                            data._id,
+                            data.name,
+                            cartDispatch,
+                            userToken
+                          )
                         // cartDispatch({ type: "REMOVE", payLoad: _id })
                       }
                     >

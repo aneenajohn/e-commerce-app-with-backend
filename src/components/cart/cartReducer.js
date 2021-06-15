@@ -1,9 +1,11 @@
+import { UPDATE, ADD_TO_CART, REMOVE } from "../utils/constants";
+
 export const cartReducer = (state, action) => {
   // console.log(action.type);
   // console.log(action.payLoad);
   // console.log({ state });
   switch (action.type) {
-    case "ADD_TO_CART":
+    case ADD_TO_CART:
       return {
         ...state,
         itemsInCart: state.itemsInCart.find(
@@ -12,7 +14,7 @@ export const cartReducer = (state, action) => {
           ? state.itemsInCart.filter((item) => item._id !== action.payLoad._id)
           : [...state.itemsInCart, action.payLoad]
       };
-    case "UPDATE":
+    case UPDATE:
       return {
         ...state,
         itemsInCart: state.itemsInCart.map((item) =>
@@ -22,7 +24,7 @@ export const cartReducer = (state, action) => {
         )
       };
 
-    case "REMOVE":
+    case REMOVE:
       return {
         ...state,
         itemsInCart: state.itemsInCart.filter(
