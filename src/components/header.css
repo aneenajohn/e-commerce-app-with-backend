@@ -15,8 +15,10 @@
   margin-left: 0.5rem;
 }
 
-.login-text {
+.login-text,
+.logout-text {
   margin-right: 0.6rem;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 640px) {
@@ -36,10 +38,12 @@
     color: var(--ow-font-color);
   }
 
-  .login-text {
+  .login-text,
+  .logout-text {
     color: var(--ow-font-color);
   }
-  .login-text:hover {
+  .login-text:hover,
+  .logout-text:hover {
     color: var(--font-color);
   }
 }

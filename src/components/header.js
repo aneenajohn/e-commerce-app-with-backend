@@ -77,7 +77,7 @@ export const Header = () => {
 
         <li className="nav__item">
           {isLoggedIn ? (
-            <p className="para" onClick={() => logouthandler}>
+            <p className="para logout-text" onClick={() => logouthandler}>
               Logout
             </p>
           ) : (

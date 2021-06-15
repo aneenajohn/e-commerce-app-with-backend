@@ -7,12 +7,13 @@ import { useWishList } from "../WishList/wishContext";
 import { useProduct } from "./productContext";
 import { getFilteredData } from "../Filter/filter";
 import { getSortedData } from "../Filter/sort";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import { addToCartHandler } from "../ServerCalls/ServerCalls";
 import { addToCartHandler, wishlistHandler } from "../ServerCalls/ServerCalls";
 import { getTrimmedTitle, isAddedInList, toggleActive } from "../utils/utils";
 import "./productList-styles.css";
+import { useAuth } from "../Context/authProvider";
 
 export default function ProductList() {
   const [productsData, setProductsData] = useState([]);
@@ -26,6 +27,20 @@ export default function ProductList() {
     showFastDeliveryOnly
   } = useProduct();
   const [isLoading, setLoader] = useState(false);
+  const {
+    authState: { userToken, isLoggedIn }
+  } = useAuth();
+
+  function addToCart(data, itemsInCart, cartDispatch) {
+    if (isLoggedIn) {
+      return addToCart(data, itemsInCart, cartDispatch, userToken);
+    }
+    toast.dark(`Please login`, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: true
+    });
+  }
 
   useEffect(() => {
     (async function () {
@@ -265,7 +280,8 @@ export default function ProductList() {
                           : "btn btn--primary btn--cart disabled"
                       }
                       onClick={() =>
-                        addToCartHandler(data, itemsInCart, cartDispatch)
+                        // addToCartHandler(data, itemsInCart, cartDispatch)
+                        addToCart(data, itemsInCart, cartDispatch)
                       }
                     >
                       Add to cart {"   "}
