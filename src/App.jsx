@@ -4,7 +4,6 @@ import ProductList from "./components/ProductList/productList";
 import { Cart } from "./components/cart/cartList";
 import { WishList } from "./components/WishList/wishlist";
 import { Login } from "./components/Login/Login";
-// import ProductList from "./components/Products";
 import { DataLoader } from "./components/DataLoader";
 import { PrivateRoute } from "./PrivateRoute";
 export default function App() {
