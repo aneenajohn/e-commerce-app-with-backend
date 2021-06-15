@@ -24,11 +24,11 @@ export const Header = () => {
     authDispatch({
       type: SET_LOGOUT
     });
-    cartDispatch({
-      type: ADD_TO_CART,
-      payLoad: []
-    });
-    wishDispatch({ type: ADD_TO_WISHLIST, payLoad: [] });
+    // cartDispatch({
+    //   type: ADD_TO_CART,
+    //   payLoad: []
+    // });
+    // wishDispatch({ type: ADD_TO_WISHLIST, payLoad: [] });
   }
 
   return (
@@ -77,7 +77,7 @@ export const Header = () => {
 
         <li className="nav__item">
           {isLoggedIn ? (
-            <p className="para logout-text" onClick={() => logouthandler}>
+            <p className="para logout-text" onClick={() => logouthandler()}>
               Logout
             </p>
           ) : (

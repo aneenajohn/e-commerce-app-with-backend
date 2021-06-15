@@ -36,6 +36,11 @@ export const addToCartHandler = async (
     });
   } else {
     try {
+      toast.success(`${product.name} is being added to cart`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true
+      });
       const { data } = await axios.post(
         `${BACKEND_URL}cart`,
         {
@@ -77,12 +82,17 @@ export const wishlistHandler = async (
   const itemFound = isAddedInList(product._id, wishList);
   if (itemFound) {
     try {
-      deleteFromWishlist(product._id, product.name, wishDispatch);
+      deleteFromWishlist(product._id, product.name, wishDispatch, token);
     } catch (err) {
       console.error(err);
     }
   } else {
     try {
+      toast.success(`${product.name} is being added to wish list`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true
+      });
       const { data } = await axios.post(
         `${BACKEND_URL}wishlist`,
         {
@@ -129,14 +139,11 @@ export const CartUpdate = async (
   }
   try {
     // setQtyUpdate(false);
-    toast.success(
-      `${name}'s quantity is getting updated to ${updatedQuantity}`,
-      {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: true
-      }
-    );
+    toast.success(`${name}'s quantity is being updated to ${updatedQuantity}`, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: true
+    });
     const {
       data: { success, cartItem }
     } = await axios.post(
@@ -169,6 +176,11 @@ export const CartUpdate = async (
 
 export const deleteCartItem = async (_id, name, cartDispatch, token) => {
   try {
+    toast.dark(`${name} is being removed from cart`, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: true
+    });
     console.log("inside delete");
     const { data } = await axios.delete(`${BACKEND_URL}cart/${_id}`, {
       headers: {
@@ -196,6 +208,11 @@ export const deleteFromWishlist = async (
   token
 ) => {
   try {
+    toast.dark(`${name} is being removed from wishlist`, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: true
+    });
     const { data } = await axios.delete(`${BACKEND_URL}wishlist/${productId}`, {
       headers: {
         authorization: token

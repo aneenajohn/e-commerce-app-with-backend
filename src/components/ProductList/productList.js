@@ -33,15 +33,25 @@ export default function ProductList() {
 
   function addToCart(data, itemsInCart, cartDispatch) {
     if (isLoggedIn) {
-      return addToCart(data, itemsInCart, cartDispatch, userToken);
+      return addToCartHandler(data, itemsInCart, cartDispatch, userToken);
     }
-    toast.dark(`Please login`, {
+    toast.dark(`Please login to add to cart`, {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: true
     });
   }
 
+  function addToWishlist(data, wishList, wishDispatch) {
+    if (isLoggedIn) {
+      return wishlistHandler(data, wishList, wishDispatch, userToken);
+    }
+    toast.dark(`Please login to add to wishlist`, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: true
+    });
+  }
   useEffect(() => {
     (async function () {
       try {
@@ -244,9 +254,7 @@ export default function ProductList() {
                         : "fa fa-heart wish-icon"
                     }
                     aria-hidden="true"
-                    onClick={() =>
-                      wishlistHandler(data, wishList, wishDispatch)
-                    }
+                    onClick={() => addToWishlist(data, wishList, wishDispatch)}
                   ></i>
                   <div className="card__desc">
                     <h1>

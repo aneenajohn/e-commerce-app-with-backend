@@ -47,3 +47,7 @@
     left: 55%;
   }
 }
+
+.fa-heart {
+  cursor: pointer;
+}
