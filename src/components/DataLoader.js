@@ -26,7 +26,7 @@ export const DataLoader = () => {
           );
         }
       })();
-  }, [userToken, isLoggedIn]);
+  }, [userToken, isLoggedIn, cartDispatch]);
 
   useEffect(() => {
     isLoggedIn &&
@@ -43,7 +43,7 @@ export const DataLoader = () => {
           );
         }
       })();
-  }, [userToken, isLoggedIn]);
+  }, [userToken, isLoggedIn, wishDispatch]);
 
   return null;
 };

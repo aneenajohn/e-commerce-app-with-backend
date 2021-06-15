@@ -1,3 +1,5 @@
+import { ADD_TO_WISHLIST, REMOVE } from "../utils/constants";
+
 export const wishReducer = (state, action) => {
   // console.log(state);
   // console.log(action.type);
@@ -5,7 +7,7 @@ export const wishReducer = (state, action) => {
   // console.log(state.wishList);
   // return state;
   switch (action.type) {
-    case "ADD_TO_WISHLIST":
+    case ADD_TO_WISHLIST:
       const isWishPresent = state.wishList.find(
         (wish) => Number(wish._id) === Number(action.payLoad._id)
       );
@@ -18,7 +20,7 @@ export const wishReducer = (state, action) => {
           ? state.wishList.filter((wish) => wish._id !== action.payLoad._id)
           : [...state.wishList, action.payLoad]
       };
-    case "REMOVE":
+    case REMOVE:
       return {
         ...state,
         wishList: state.wishList.filter((item) => item._id !== action.payLoad)

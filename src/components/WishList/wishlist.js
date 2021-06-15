@@ -4,8 +4,13 @@ import "./wishList-styles.css";
 import { ToastContainer } from "react-toastify";
 import { deleteFromWishlist } from "../ServerCalls/ServerCalls";
 import { EmptyWishlist } from "./EmptyWishlist";
+import { useAuth } from "../Context/authProvider";
+
 export const WishList = () => {
   const { wishList, dispatch: wishDispatch } = useWishList();
+  const {
+    authState: { userToken }
+  } = useAuth();
 
   return (
     <section className="wish-container">
@@ -59,7 +64,12 @@ export const WishList = () => {
                           className="btn btn--primary  btn--trash"
                           onClick={() =>
                             // wishDispatch({ type: "REMOVE", payLoad: _id })
-                            deleteFromWishlist(_id, name, wishDispatch)
+                            deleteFromWishlist(
+                              _id,
+                              name,
+                              wishDispatch,
+                              userToken
+                            )
                           }
                         >
                           <i

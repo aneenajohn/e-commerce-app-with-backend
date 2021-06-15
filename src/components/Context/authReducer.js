@@ -1,11 +1,11 @@
 import { SET_LOGIN, SET_LOGOUT } from "../utils/constants";
-export const reducerFunction = (state, action) => {
+export const authReducer = (state, action) => {
   switch (action.type) {
     case SET_LOGIN:
       return {
         ...state,
         isLoggedIn: true,
-        userToken: action.payload.token
+        userToken: action.payLoad.token
       };
     case SET_LOGOUT:
       return {
