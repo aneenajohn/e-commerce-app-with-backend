@@ -1,15 +1,13 @@
-import userEvent from "@testing-library/user-event";
 import { useReducer } from "react";
 import { Header } from "../header";
 import { loginReducer } from "./loginReducer";
 import { useAuth } from "../Context/authProvider";
-import { SET_USER_INFO, SET_LOGIN, SET_LOGOUT } from "../utils/constants";
+import { SET_USER_INFO, SET_LOGIN } from "../utils/constants";
 import { loginService } from "../ServerCalls/ServerCalls";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-
 import "./Login.css";
-import { func } from "prop-types";
+
 export function Login() {
   const userInfo = {
     email: "",
@@ -53,7 +51,7 @@ export function Login() {
         hideProgressBar: true
       });
     } else {
-      toast.dark(`Login Fialed. Please check and try again`, {
+      toast.dark(`Login Failed. Please check and try again`, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: true

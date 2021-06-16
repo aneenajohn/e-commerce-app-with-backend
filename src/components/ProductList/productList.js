@@ -10,7 +10,12 @@ import { getSortedData } from "../Filter/sort";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import { addToCartHandler } from "../ServerCalls/ServerCalls";
-import { addToCartHandler, wishlistHandler } from "../ServerCalls/ServerCalls";
+import {
+  addToCart,
+  addToWishlist,
+  addToCartHandler,
+  wishlistHandler
+} from "../ServerCalls/ServerCalls";
 import { getTrimmedTitle, isAddedInList, toggleActive } from "../utils/utils";
 import "./productList-styles.css";
 import { useAuth } from "../Context/authProvider";
@@ -31,27 +36,28 @@ export default function ProductList() {
     authState: { userToken, isLoggedIn }
   } = useAuth();
 
-  function addToCart(data, itemsInCart, cartDispatch) {
-    if (isLoggedIn) {
-      return addToCartHandler(data, itemsInCart, cartDispatch, userToken);
-    }
-    toast.dark(`Please login to add to cart`, {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: true
-    });
-  }
+  // function addToCart(data, itemsInCart, cartDispatch) {
+  //   if (isLoggedIn) {
+  //     return addToCartHandler(data, itemsInCart, cartDispatch, userToken);
+  //   }
+  //   toast.dark(`Please login to add to cart`, {
+  //     position: "top-right",
+  //     autoClose: 3000,
+  //     hideProgressBar: true
+  //   });
+  // }
 
-  function addToWishlist(data, wishList, wishDispatch) {
-    if (isLoggedIn) {
-      return wishlistHandler(data, wishList, wishDispatch, userToken);
-    }
-    toast.dark(`Please login to add to wishlist`, {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: true
-    });
-  }
+  // function addToWishlist(data, wishList, wishDispatch) {
+  //   if (isLoggedIn) {
+  //     return wishlistHandler(data, wishList, wishDispatch, userToken);
+  //   }
+  //   toast.dark(`Please login to add to wishlist`, {
+  //     position: "top-right",
+  //     autoClose: 3000,
+  //     hideProgressBar: true
+  //   });
+  // }
+
   useEffect(() => {
     (async function () {
       try {
@@ -254,7 +260,15 @@ export default function ProductList() {
                         : "fa fa-heart wish-icon"
                     }
                     aria-hidden="true"
-                    onClick={() => addToWishlist(data, wishList, wishDispatch)}
+                    onClick={() =>
+                      addToWishlist(
+                        data,
+                        wishList,
+                        wishDispatch,
+                        isLoggedIn,
+                        userToken
+                      )
+                    }
                   ></i>
                   <div className="card__desc">
                     <h1>
@@ -289,7 +303,13 @@ export default function ProductList() {
                       }
                       onClick={() =>
                         // addToCartHandler(data, itemsInCart, cartDispatch)
-                        addToCart(data, itemsInCart, cartDispatch)
+                        addToCart(
+                          data,
+                          itemsInCart,
+                          cartDispatch,
+                          isLoggedIn,
+                          userToken
+                        )
                       }
                     >
                       Add to cart {"   "}

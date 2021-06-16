@@ -20,6 +20,24 @@ export const loginService = async (email, password) => {
   }
 };
 
+export function addToCart(
+  data,
+  itemsInCart,
+  cartDispatch,
+  isLoggedIn,
+  userToken
+) {
+  if (isLoggedIn) {
+    addToCartHandler(data, itemsInCart, cartDispatch, userToken);
+  } else {
+    toast.dark(`Please login to add to cart`, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: true
+    });
+  }
+}
+
 export const addToCartHandler = async (
   product,
   itemsInCart,
@@ -70,6 +88,24 @@ export const addToCartHandler = async (
     }
   }
 };
+
+export function addToWishlist(
+  data,
+  wishList,
+  wishDispatch,
+  isLoggedIn,
+  userToken
+) {
+  if (isLoggedIn) {
+    wishlistHandler(data, wishList, wishDispatch, userToken);
+  } else {
+    toast.dark(`Please login to add to wishlist`, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: true
+    });
+  }
+}
 
 export const wishlistHandler = async (
   product,
@@ -228,5 +264,20 @@ export const deleteFromWishlist = async (
     }
   } catch (err) {
     console.error(err);
+  }
+};
+
+export const signUpService = async (firstname, lastname, email, password) => {
+  try {
+    console.log("url", process.env.REACT_APP_BACKEND_API);
+    const response = await axios.post(`${BACKEND_URL}users/signup`, {
+      firstname,
+      lastname,
+      email,
+      password
+    });
+    return response;
+  } catch (err) {
+    console.log("error in signup: ", err);
   }
 };
