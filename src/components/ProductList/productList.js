@@ -36,28 +36,6 @@ export default function ProductList() {
     authState: { userToken, isLoggedIn }
   } = useAuth();
 
-  // function addToCart(data, itemsInCart, cartDispatch) {
-  //   if (isLoggedIn) {
-  //     return addToCartHandler(data, itemsInCart, cartDispatch, userToken);
-  //   }
-  //   toast.dark(`Please login to add to cart`, {
-  //     position: "top-right",
-  //     autoClose: 3000,
-  //     hideProgressBar: true
-  //   });
-  // }
-
-  // function addToWishlist(data, wishList, wishDispatch) {
-  //   if (isLoggedIn) {
-  //     return wishlistHandler(data, wishList, wishDispatch, userToken);
-  //   }
-  //   toast.dark(`Please login to add to wishlist`, {
-  //     position: "top-right",
-  //     autoClose: 3000,
-  //     hideProgressBar: true
-  //   });
-  // }
-
   useEffect(() => {
     (async function () {
       try {

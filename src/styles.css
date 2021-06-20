@@ -90,6 +90,7 @@ body {
   top: 3%;
   left: 65%;
   color: var(--primary-color);
+  cursor: pointer;
 }
 .filter-head {
   padding: 1rem 0rem;
@@ -101,6 +102,7 @@ body {
 
 .filter-content {
   margin: 1rem 0;
+  cursor: pointer;
 }
 .card-container {
   display: grid;
@@ -174,7 +176,7 @@ body {
 .wish-icon {
   position: absolute;
   font-size: medium;
-  left: 85%;
+  left: 82%;
   margin: 0.4rem;
   padding: 0.8rem;
   color: #6b7280;
@@ -213,6 +215,7 @@ body {
   color: white;
   width: fit-content;
   padding: 0 1rem;
+  border-radius: 3px;
 }
 
 .disabled {

@@ -2,7 +2,12 @@ import { useCart } from "./cart/cartContext";
 import { Link, useLocation } from "react-router-dom";
 import { useWishList } from "./WishList/wishContext";
 import { useAuth } from "./Context/authProvider";
-import { ADD_TO_CART, SET_LOGOUT, ADD_TO_WISHLIST } from "./utils/constants";
+import {
+  ADD_TO_CART,
+  SET_LOGOUT,
+  ADD_TO_WISHLIST,
+  SET_CART_DATA
+} from "./utils/constants";
 import "./header.css";
 
 export const Header = () => {
@@ -24,8 +29,8 @@ export const Header = () => {
       type: SET_LOGOUT
     });
     // cartDispatch({
-    //   type: ADD_TO_CART,
-    //   payLoad: []
+    //   type: SET_CART_DATA,
+    //   payLoad: null
     // });
     // wishDispatch({
     //   type: ADD_TO_WISHLIST,
@@ -41,7 +46,8 @@ export const Header = () => {
       <ul className="menu">
         <Link to="/cart" state={{ itemsInCart }}>
           <div className="nav__link">
-            {itemsInCart.length === 0 ? (
+            {/* {itemsInCart?.length === 0 ? ( */}
+            {!isLoggedIn ? (
               <i
                 className="fa fa-shopping-cart fa-shopping-cart--nav"
                 aria-hidden="true"
@@ -49,7 +55,7 @@ export const Header = () => {
             ) : (
               <div class="icon-badge">
                 <i class="fa fa-shopping-cart cart" aria-hidden="true"></i>
-                <span class="icon-badge__cart">{itemsInCart.length}</span>
+                <span class="icon-badge__cart">{itemsInCart?.length}</span>
               </div>
             )}
           </div>
@@ -58,12 +64,12 @@ export const Header = () => {
         <li className="nav__item">
           <Link to="/wishlist" state={{ wishList }}>
             <div className="nav__link">
-              {wishList.length === 0 ? (
+              {!isLoggedIn ? (
                 <i className="fa fa-heart wish-header" aria-hidden="true"></i>
               ) : (
                 <div class="icon-badge">
                   <i class="fa fa-heart wish-header" aria-hidden="true"></i>
-                  <span class="icon-badge__wish">{wishList.length}</span>
+                  <span class="icon-badge__wish">{wishList?.length}</span>
                 </div>
               )}
             </div>

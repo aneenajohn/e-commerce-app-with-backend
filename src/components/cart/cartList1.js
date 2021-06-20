@@ -1,7 +1,6 @@
 import { useCart } from "./cartContext";
 import { useWishList } from "../WishList/wishContext";
 import { Header } from "../header";
-import "./cartStyles.css";
 import { ToastContainer } from "react-toastify";
 import {
   wishlistHandler,
@@ -11,7 +10,8 @@ import {
 import { isAddedInList } from "../utils/utils";
 import { EmptyCart } from "./EmptyCart";
 import { useAuth } from "../Context/authProvider";
-import { DataLoader } from "../DataLoader";
+import "./cartList1.styles.css";
+import "./cartStyles.css";
 
 export const Cart = () => {
   const { itemsInCart, dispatch: cartDispatch } = useCart();
@@ -25,11 +25,10 @@ export const Cart = () => {
 
   return (
     <>
-      {/* <DataLoader /> */}
+      <Header />
       <section className="cart-container">
         <div>
-          <Header />
-          {console.log("items in cart", { itemsInCart })}
+          {/* {console.log("items in cart", { itemsInCart })}
           <br />
           <div className="aside cart-total center">
             {itemsInCart?.length && (
@@ -53,18 +52,18 @@ export const Cart = () => {
                 </button>
               </div>
             )}
-          </div>
+          </div> */}
           {itemsInCart?.length === 0 ? (
             <p className="para--lead">
               <EmptyCart />
             </p>
           ) : (
             <div className="container__main">
-              <h1 class="heading center fs-h1">My Cart</h1>
-              <div className="card-container">
+              <h2 className="cart-title">My Cart ({itemsInCart.length})</h2>
+              <div className="cart-items">
                 {itemsInCart?.map((data) => (
-                  <div className="card card--display" Key={data._id}>
-                    <div className="card__thumbnail">
+                  <div className="item" Key={data._id}>
+                    <div className="card__thumbnail cart-image">
                       <img
                         src={data.imageUrl}
                         className="card__img"
@@ -74,8 +73,8 @@ export const Cart = () => {
                     <i
                       className={
                         isAddedInList(data._id, wishList)
-                          ? "fa fa-heart wish-icon wish-icon--selected"
-                          : "fa fa-heart wish-icon"
+                          ? "fa fa-heart wish-icon cart wish-icon--selected"
+                          : "fa fa-heart wish-icon cart"
                       }
                       aria-hidden="true"
                       onClick={() =>
@@ -86,6 +85,7 @@ export const Cart = () => {
                       <h1>
                         <strong>{data.name}</strong>
                       </h1>
+                      <p className="description">{data.description}</p>
                       <div className="star-count">
                         <p className="star-count__star">{data.ratings}</p>
                         <div class="rating">
@@ -94,7 +94,7 @@ export const Cart = () => {
                           </div>
                         </div>
                       </div>
-                      <h2>
+                      <h2 className="price">
                         <strong> ₹ {data.price}</strong>
                       </h2>
                       <p className="card__details offer">{data.offer}</p>
@@ -126,7 +126,7 @@ export const Cart = () => {
                         }
                       ></i>
                       <button
-                        className="btn btn--primary  btn--trash"
+                        className="btn-outlined btn-outlined--primary  btn--trash"
                         onClick={
                           () =>
                             deleteCartItem(
@@ -145,9 +145,33 @@ export const Cart = () => {
                   </div>
                 ))}
               </div>
+              <div className="order-btn-container">
+                <div class="btn btn--primary order-btn">Place Order</div>
+              </div>
               <ToastContainer style={{ fontSize: "medium" }} />
             </div>
           )}
+        </div>
+        <div className="billing">
+          <p className="bill-header para">Price Details</p>
+          <div className="bill-container">
+            <div className="bill-details para">
+              <p>Price ({itemsInCart.length} items)</p>
+              <p>{totalPrice()}</p>
+            </div>
+            <div className="bill-details para">
+              <p>Delivery Charges</p>
+              <p>
+                <span className="free">FREE</span>
+              </p>
+            </div>
+            <div className="bill-details total para">
+              <p>Total Amount</p>
+              <p>
+                <span>{totalPrice()}</span>
+              </p>
+            </div>
+          </div>
         </div>
       </section>
     </>

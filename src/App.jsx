@@ -1,7 +1,7 @@
 import "./styles.css";
 import { Routes, Route } from "react-router-dom";
 import ProductList from "./components/ProductList/productList";
-import { Cart } from "./components/cart/cartList";
+import { Cart } from "./components/cart/cartList1";
 import { WishList } from "./components/WishList/wishlist";
 import { Login } from "./components/Login/Login";
 import { Signup } from "./components/Signup/Signup";

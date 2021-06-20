@@ -1,10 +1,15 @@
-import { UPDATE, ADD_TO_CART, REMOVE } from "../utils/constants";
+import { UPDATE, ADD_TO_CART, REMOVE, SET_CART_DATA } from "../utils/constants";
 
 export const cartReducer = (state, action) => {
   // console.log(action.type);
   // console.log(action.payLoad);
   // console.log({ state });
   switch (action.type) {
+    case SET_CART_DATA:
+      return {
+        ...state,
+        itemsInCart: action.payload
+      };
     case ADD_TO_CART:
       return {
         ...state,
