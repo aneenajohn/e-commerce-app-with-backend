@@ -49,6 +49,15 @@ input[name="email"] {
   margin-left: 0.5rem;
 }
 
+.test{
+  font-size:1.2rem;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  margin-top:1rem;
+}
+
 @media screen and (max-width: 400px) {
   .inputForm {
     height: calc(100vh - 15rem);

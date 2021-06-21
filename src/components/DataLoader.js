@@ -46,7 +46,7 @@ export const DataLoader = () => {
           // data.wishlistItems.map((item) =>
           //   wishDispatch({ type: "ADD_TO_WISHLIST", payLoad: item })
           // );
-          cartDispatch({
+          wishDispatch({
             type: SET_WISHLIST_DATA,
             payload: data.wishlistItems
           });

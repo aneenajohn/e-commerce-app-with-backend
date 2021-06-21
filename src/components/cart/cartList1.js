@@ -21,7 +21,7 @@ export const Cart = () => {
   } = useAuth();
   // const [isQtyUpdated, setQtyUpdate] = useState(true);
   const totalPrice = () =>
-    itemsInCart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    itemsInCart?.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
     <>
@@ -33,9 +33,9 @@ export const Cart = () => {
       )}
       <section className="cart-container">
         <div>
-          {itemsInCart.length !== 0 && (
+          {itemsInCart?.length !== 0 && (
             <div className="container__main">
-              <h2 className="cart-title">My Cart ({itemsInCart.length})</h2>
+              <h2 className="cart-title">My Cart ({itemsInCart?.length})</h2>
               <div className="cart-items">
                 {itemsInCart?.map((data) => (
                   <div className="item" Key={data._id}>
@@ -128,12 +128,12 @@ export const Cart = () => {
             </div>
           )}
         </div>
-        {itemsInCart.length !== 0 && (
+        {itemsInCart?.length !== 0 && (
           <div className="billing">
             <p className="bill-header para">Price Details</p>
             <div className="bill-container">
               <div className="bill-details para">
-                <p>Price ({itemsInCart.length} items)</p>
+                <p>Price ({itemsInCart?.length} items)</p>
                 <p>{totalPrice()}</p>
               </div>
               <div className="bill-details para">

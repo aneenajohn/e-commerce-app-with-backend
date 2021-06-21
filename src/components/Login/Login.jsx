@@ -99,6 +99,11 @@ export function Login() {
               </Link>
             </span>
           </p>
+          <div className="test">
+            <p>Test Credentials</p>
+            <p>email: test123@gmail.com</p>
+            <p>password: test123</p>
+          </div>
         </div>
       </div>
       <ToastContainer style={{ fontSize: "medium" }} />
