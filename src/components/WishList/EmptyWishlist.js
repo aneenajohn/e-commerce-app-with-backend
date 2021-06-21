@@ -1,13 +1,16 @@
 import "./emptyWishlist-styles.css";
+import { Link } from "react-router-dom";
 
 export const EmptyWishlist = () => {
+  // const navigate = useNavigate();
   return (
-    <body className="image-body">
-      <div className="background-container">
-        <h1 className="content">
-          Oh no Oh no Oh no no no..looks like your wishlist is empty
-        </h1>
-      </div>
-    </body>
+    <div className="empty">
+      <h1 className="content">Oh no...Looks like your wishlist is empty</h1>
+      <Link to="/">
+        <div className="btn-container">
+          <div className="btn btn--primary shopping">Shop Now</div>
+        </div>
+      </Link>
+    </div>
   );
 };

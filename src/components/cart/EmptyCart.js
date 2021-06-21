@@ -1,10 +1,15 @@
 import "./EmptyCartStyles.css";
+import { Link } from "react-router-dom";
+
 export const EmptyCart = () => {
   return (
-    <body className="empty-cart">
-      <div className="background-container">
-        <h1 className="content">Your cart is empty</h1>
-      </div>
-    </body>
+    <div className="empty">
+      <h2 className="content">Oh no...Looks like your cart is empty !</h2>
+      <Link to="/">
+        <div className="btn-container">
+          <div className="btn btn--primary shopping">Shop Now</div>
+        </div>
+      </Link>
+    </div>
   );
 };

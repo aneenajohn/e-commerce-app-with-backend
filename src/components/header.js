@@ -5,6 +5,7 @@ import { useAuth } from "./Context/authProvider";
 import {
   ADD_TO_CART,
   SET_LOGOUT,
+  SET_WISHLIST_DATA,
   ADD_TO_WISHLIST,
   SET_CART_DATA
 } from "./utils/constants";
@@ -33,15 +34,18 @@ export const Header = () => {
     //   payLoad: null
     // });
     // wishDispatch({
-    //   type: ADD_TO_WISHLIST,
-    //   payLoad: []
+    //   type: SET_WISHLIST_DATA,
+    //   payLoad: null
     // });
   }
 
   return (
     <nav className="head">
       <Link to="/">
-        <p className="para--lead app-home nav__logo">Lingokart</p>
+        {/* <div className="brand">
+          <img href="hola1-favicon.png" alt="logo"></img> */}
+        <p className="para--lead app-home nav__logo">LingoKart</p>
+        {/* </div> */}
       </Link>
       <ul className="menu">
         <Link to="/cart" state={{ itemsInCart }}>

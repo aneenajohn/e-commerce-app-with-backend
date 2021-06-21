@@ -26,38 +26,14 @@ export const Cart = () => {
   return (
     <>
       <Header />
+      {itemsInCart?.length === 0 && (
+        <p className="para--lead">
+          <EmptyCart />
+        </p>
+      )}
       <section className="cart-container">
         <div>
-          {/* {console.log("items in cart", { itemsInCart })}
-          <br />
-          <div className="aside cart-total center">
-            {itemsInCart?.length && (
-              <div className="bill">
-                <div className="para total">
-                  <b>Total:</b> {""}
-                  {""}
-                  {totalPrice()}
-                </div>
-                <p className="para">
-                  <strong>Delivery Charges</strong> :Free
-                </p>
-                <div className="para">
-                  <b>Amount to be paid:</b>
-                  {""}
-                  {""}
-                  {totalPrice()}
-                </div>
-                <button className="btn btn--primary btn--buy-now">
-                  Order Now
-                </button>
-              </div>
-            )}
-          </div> */}
-          {itemsInCart?.length === 0 ? (
-            <p className="para--lead">
-              <EmptyCart />
-            </p>
-          ) : (
+          {itemsInCart.length !== 0 && (
             <div className="container__main">
               <h2 className="cart-title">My Cart ({itemsInCart.length})</h2>
               <div className="cart-items">
@@ -152,27 +128,29 @@ export const Cart = () => {
             </div>
           )}
         </div>
-        <div className="billing">
-          <p className="bill-header para">Price Details</p>
-          <div className="bill-container">
-            <div className="bill-details para">
-              <p>Price ({itemsInCart.length} items)</p>
-              <p>{totalPrice()}</p>
-            </div>
-            <div className="bill-details para">
-              <p>Delivery Charges</p>
-              <p>
-                <span className="free">FREE</span>
-              </p>
-            </div>
-            <div className="bill-details total para">
-              <p>Total Amount</p>
-              <p>
-                <span>{totalPrice()}</span>
-              </p>
+        {itemsInCart.length !== 0 && (
+          <div className="billing">
+            <p className="bill-header para">Price Details</p>
+            <div className="bill-container">
+              <div className="bill-details para">
+                <p>Price ({itemsInCart.length} items)</p>
+                <p>{totalPrice()}</p>
+              </div>
+              <div className="bill-details para">
+                <p>Delivery Charges</p>
+                <p>
+                  <span className="free">FREE</span>
+                </p>
+              </div>
+              <div className="bill-details total para">
+                <p>Total Amount</p>
+                <p>
+                  <span>{totalPrice()}</span>
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </section>
     </>
   );

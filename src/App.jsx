@@ -7,6 +7,7 @@ import { Login } from "./components/Login/Login";
 import { Signup } from "./components/Signup/Signup";
 import { DataLoader } from "./components/DataLoader";
 import { PrivateRoute } from "./PrivateRoute";
+
 export default function App() {
   return (
     <div className="App">

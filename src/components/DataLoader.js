@@ -4,7 +4,7 @@ import { BACKEND_URL } from "./backendUrl";
 import { useCart } from "./cart/cartContext";
 import { useWishList } from "./WishList/wishContext";
 import { useAuth } from "./Context/authProvider";
-import { SET_CART_DATA } from "./utils/constants";
+import { SET_CART_DATA, SET_WISHLIST_DATA } from "./utils/constants";
 
 export const DataLoader = () => {
   const { dispatch: cartDispatch } = useCart();
@@ -43,9 +43,13 @@ export const DataLoader = () => {
         });
         console.log("wishlist", data);
         if (data.success) {
-          data.wishlistItems.map((item) =>
-            wishDispatch({ type: "ADD_TO_WISHLIST", payLoad: item })
-          );
+          // data.wishlistItems.map((item) =>
+          //   wishDispatch({ type: "ADD_TO_WISHLIST", payLoad: item })
+          // );
+          cartDispatch({
+            type: SET_WISHLIST_DATA,
+            payload: data.wishlistItems
+          });
         }
       })();
   }, [userToken, isLoggedIn, wishDispatch]);

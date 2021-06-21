@@ -16,15 +16,17 @@ export const WishList = () => {
     <section className="wish-container">
       <div>
         <Header />
-        {wishList.length === 0 ? (
+        {wishList?.length === 0 ? (
           <p className="para--lead">
             <EmptyWishlist />
           </p>
         ) : (
           <div className="container__main">
-            <h1 class="heading center fs-h1">My WishList</h1>
-            <div className="card-container">
-              {wishList.map(
+            <h1 class="heading center fs-h1">
+              My WishList ({wishList?.length})
+            </h1>
+            <div className="card-container wish-container">
+              {wishList?.map(
                 ({
                   _id,
                   name,
@@ -61,7 +63,7 @@ export const WishList = () => {
                         </h2>
                         <p className="card__details offer">{offer}</p>
                         <button
-                          className="btn btn--primary  btn--trash"
+                          className="btn-outlined btn-outlined--primary btn--trash"
                           onClick={() =>
                             // wishDispatch({ type: "REMOVE", payLoad: _id })
                             deleteFromWishlist(

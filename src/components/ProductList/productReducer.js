@@ -15,7 +15,7 @@ export const productReducer = (state, action) => {
       return {
         ...state,
         sortBy: null,
-        showInventoryAll: false,
+        showInventoryAll: "All",
         showFastDeliveryOnly: false
       };
 

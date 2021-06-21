@@ -9,7 +9,7 @@ export function getTrimmedTitle(title) {
 }
 
 export const isAddedInList = (_id, list) => {
-  const itemFound = list.find((item) => item._id === _id);
+  const itemFound = list?.find((item) => item._id === _id);
   return itemFound;
 };
 
