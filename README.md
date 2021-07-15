@@ -1,7 +1,7 @@
 # e-commerce app
 ## Lingokart is an e-commerce app for linguaphiles out there.
 
-Lingokart is a curated version of best books and courses which would help people to see the world with a different aspect by learning different languages.
+Lingokart is a curated version of best books and courses which would help people to see the world from a different aspect by learning different languages.
 
 > *Learning another language is like becoming another person.*
 
