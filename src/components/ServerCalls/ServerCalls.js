@@ -17,6 +17,11 @@ export const loginService = async (email, password) => {
     });
   } catch (err) {
     console.log("err :", err);
+    toast.dark(`Login failed! Please try again`, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: true
+    });
   }
 };
 

@@ -12,6 +12,7 @@ import { EmptyCart } from "./EmptyCart";
 import { useAuth } from "../Context/authProvider";
 import "./cartList1.styles.css";
 import "./cartStyles.css";
+import { processPayment } from "./processPayment";
 
 export const Cart = () => {
   const { itemsInCart, dispatch: cartDispatch } = useCart();
@@ -122,7 +123,12 @@ export const Cart = () => {
                 ))}
               </div>
               <div className="order-btn-container">
-                <div class="btn btn--primary order-btn">Place Order</div>
+                <div
+                  class="btn btn--primary order-btn"
+                  onClick={() => processPayment()}
+                >
+                  Place Order
+                </div>
               </div>
               <ToastContainer style={{ fontSize: "medium" }} />
             </div>

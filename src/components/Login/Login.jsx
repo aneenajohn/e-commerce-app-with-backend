@@ -15,6 +15,7 @@ export function Login() {
   };
   const [loginState, loginDispatch] = useReducer(loginReducer, userInfo);
   console.log(loginState);
+
   const { authDispatch } = useAuth();
   const { state } = useLocation();
   const navigate = useNavigate();
