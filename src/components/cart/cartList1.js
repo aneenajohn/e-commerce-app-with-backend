@@ -13,6 +13,7 @@ import { useAuth } from "../Context/authProvider";
 import "./cartList1.styles.css";
 import "./cartStyles.css";
 import { processPayment } from "./processPayment";
+import { GetPrice } from "./getPrice";
 
 export const Cart = () => {
   const { itemsInCart, dispatch: cartDispatch } = useCart();
@@ -21,8 +22,8 @@ export const Cart = () => {
     authState: { userToken }
   } = useAuth();
   // const [isQtyUpdated, setQtyUpdate] = useState(true);
-  const totalPrice = () =>
-    itemsInCart?.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  // const totalPrice = () =>
+  //   itemsInCart?.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
     <>
@@ -125,7 +126,7 @@ export const Cart = () => {
               <div className="order-btn-container">
                 <div
                   class="btn btn--primary order-btn"
-                  onClick={() => processPayment()}
+                  onClick={() => processPayment(itemsInCart)}
                 >
                   Place Order
                 </div>
@@ -140,7 +141,10 @@ export const Cart = () => {
             <div className="bill-container">
               <div className="bill-details para">
                 <p>Price ({itemsInCart?.length} items)</p>
-                <p>{totalPrice()}</p>
+                {/* <p>{totalPrice()}</p> */}
+                <p>
+                  <GetPrice />
+                </p>
               </div>
               <div className="bill-details para">
                 <p>Delivery Charges</p>
@@ -151,7 +155,8 @@ export const Cart = () => {
               <div className="bill-details total para">
                 <p>Total Amount</p>
                 <p>
-                  <span>{totalPrice()}</span>
+                  <GetPrice />
+                  {/* <span>{totalPrice()}</span> */}
                 </p>
               </div>
             </div>
