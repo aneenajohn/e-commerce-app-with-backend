@@ -175,7 +175,7 @@ export const CartUpdate = async (
     updatedQuantity = itemFound.quantity - 1;
     // return updatedQuantity === 0 && deleteCartItem(_id);
     if (updatedQuantity === 0) {
-      return deleteCartItem(_id, name, cartDispatch);
+      return deleteCartItem(_id, name, cartDispatch, token);
     }
   }
   try {
