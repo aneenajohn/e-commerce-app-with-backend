@@ -14,40 +14,41 @@ This ecommerce app built with ReactJS has the following features:
  * Add to cart button
  * Add to wishlist option
  * Filter by 
+      - Language
       - Stock Availability
       - Fast Delivery Option
+ * Sort by
       - Price (high to low and low to high)
  * Option to clear all filters
-      
+     
 ## 2) Cart Page
   * Increase / Decrease the quantity
   * Remove from cart
   * List of cart items
-  * Total cost of all the cart items
+  * Total Bill amount of all the cart items
   
 ## 3) Wishlist page
    * List of all wishlist products
    * Remove from wishlist
    
+## 4) Payment 
+  * All modes of payment can be done, via Razorpay payment gateway
+
+## 5) User Authentication
+  * User authentication made with bcrypt and JWT 
+  * Login peristance by localStorage
+  * Only authenticated users will be allowed to access to cart / wishlist
+
+   
 ## Next Version would have:
 ### 1) Product Listing Page
  * Option to search products
- * Filter by 
-     - Language
-     - Price range
-     - Rating
- 
-### 2) Cart Page
-  * Move to wishlist from cart -> Done
   
-### 3) Wishlist page
-  * Move to cart from wishlist
+### 2) Wishlist page
+  * Move a product to cart from wishlist
  
-### 4) User Authentication
-  * Login Page to autheticate users
-  * Only authenticated users will be allowed to add to cart / add to wishlist
+
   
-### 5) Home Page
-  * A beautiful home page 😉 to let users know about the app on first look.
+
 
 
