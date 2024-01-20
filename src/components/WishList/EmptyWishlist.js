@@ -1,7 +1,7 @@
-import "./emptyWishlist-styles.css";
-import { Link } from "react-router-dom";
+import './emptyWishlist-styles.css';
+import { Link } from 'react-router-dom';
 
-export const EmptyWishlist = () => {
+export function EmptyWishlist() {
   // const navigate = useNavigate();
   return (
     <div className="empty">
@@ -13,4 +13,4 @@ export const EmptyWishlist = () => {
       </Link>
     </div>
   );
-};
+}

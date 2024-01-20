@@ -1,28 +1,28 @@
 export const productReducer = (state, action) => {
   // console.log(state, action);
   switch (action.type) {
-    case "SORT":
+    case 'SORT':
       return { ...state, sortBy: action.payLoad };
-    case "LANGUAGE":
+    case 'LANGUAGE':
       return { ...state, language: action.payLoad };
-    case "TOGGLE_INVENTORY":
+    case 'TOGGLE_INVENTORY':
       return { ...state, showInventoryAll: !state.showInventoryAll };
 
-    case "TOGGLE_DELIVERY":
+    case 'TOGGLE_DELIVERY':
       return { ...state, showFastDeliveryOnly: !state.showFastDeliveryOnly };
 
-    case "CLEAR_FILTER":
+    case 'CLEAR_FILTER':
       return {
         ...state,
         sortBy: null,
-        showInventoryAll: "All",
-        showFastDeliveryOnly: false
+        showInventoryAll: 'All',
+        showFastDeliveryOnly: false,
       };
 
-    case "SHOW_TOAST":
+    case 'SHOW_TOAST':
       return {
         ...state,
-        showToast: !state.showToast
+        showToast: !state.showToast,
       };
     default:
       return { state };

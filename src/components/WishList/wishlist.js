@@ -1,15 +1,16 @@
-import { useWishList } from "./wishContext";
-import { Header } from "../header";
-import "./wishList-styles.css";
-import { ToastContainer } from "react-toastify";
-import { deleteFromWishlist } from "../ServerCalls/ServerCalls";
-import { EmptyWishlist } from "./EmptyWishlist";
-import { useAuth } from "../Context/authProvider";
+import { ToastContainer } from 'react-toastify';
+import { React } from 'react';
+import './wishList-styles.css';
+import { deleteFromWishlist } from '../ServerCalls/ServerCalls';
+import { EmptyWishlist } from './EmptyWishlist';
+import { useAuth } from '../Context/authProvider';
+import { useWishList } from './wishContext';
+import { Header } from '../header';
 
-export const WishList = () => {
+export function WishList() {
   const { wishList, dispatch: wishDispatch } = useWishList();
   const {
-    authState: { userToken }
+    authState: { userToken },
   } = useAuth();
 
   return (
@@ -22,8 +23,10 @@ export const WishList = () => {
           </p>
         ) : (
           <div className="container__main">
-            <h1 class="heading center fs-h1">
-              My WishList ({wishList?.length})
+            <h1 className="heading center fs-h1">
+              My WishList (
+              {wishList?.length}
+              )
             </h1>
             <div className="card-container wish-container">
               {wishList?.map(
@@ -35,10 +38,10 @@ export const WishList = () => {
                   inStock,
                   fastDelivery,
                   ratings,
-                  offer
+                  offer,
                 }) => (
                   <div>
-                    <div className="card card--display" Key={_id}>
+                    <div className="card card--display" key={_id}>
                       <div className="card__thumbnail">
                         <img
                           src={imageUrl}
@@ -52,14 +55,18 @@ export const WishList = () => {
                         </h1>
                         <div className="star-count">
                           <p className="star-count__star">{ratings}</p>
-                          <div class="rating">
+                          <div className="rating">
                             <div className="rating__stars">
-                              <i className="fa fa-star" aria-hidden="true"></i>
+                              <i className="fa fa-star" aria-hidden="true" />
                             </div>
                           </div>
                         </div>
                         <h2>
-                          <strong> ₹ {price}</strong>
+                          <strong>
+                            {' '}
+                            ₹
+                            {price}
+                          </strong>
                         </h2>
                         <p className="card__details offer">{offer}</p>
                         <button
@@ -70,27 +77,22 @@ export const WishList = () => {
                               _id,
                               name,
                               wishDispatch,
-                              userToken
-                            )
-                          }
+                              userToken,
+                            )}
                         >
-                          <i
-                            class="fa fa-trash-o"
-                            aria-hidden="true"
-                            // onClick={() => deleteFromWishlist()}
-                          ></i>
+                          <i className="fa fa-trash-o" aria-hidden="true" />
                           Remove
                         </button>
                       </div>
                     </div>
                   </div>
-                )
+                ),
               )}
             </div>
           </div>
         )}
       </div>
-      <ToastContainer style={{ fontSize: "medium" }} />
+      <ToastContainer style={{ fontSize: 'medium' }} />
     </section>
   );
-};
+}

@@ -1,20 +1,20 @@
-import { Header } from "../header";
-import { useReducer } from "react";
-import "../Login/Login.css";
-import { signupReducer } from "../Signup/signupReducer";
-import { useAuth } from "../Context/authProvider";
-import { SET_NEWUSER_INFO } from "../utils/constants";
-import { signUpService } from "../ServerCalls/ServerCalls";
-import { toast, ToastContainer } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useReducer } from 'react';
+import { Header } from '../header';
+import '../Login/Login.css';
+import { signupReducer } from './signupReducer';
+import { useAuth } from '../Context/authProvider';
+import { SET_NEWUSER_INFO } from '../utils/constants';
+import { signUpService } from '../ServerCalls/ServerCalls';
+import { toast, ToastContainer } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
-export const Signup = () => {
+export function Signup() {
   const navigate = useNavigate();
   const newUserInfo = {
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: ""
+    firstname: '',
+    lastname: '',
+    email: '',
+    password: '',
   };
   const [signupState, signupDispatch] = useReducer(signupReducer, newUserInfo);
 
@@ -23,26 +23,28 @@ export const Signup = () => {
     console.log(e.target.value);
     signupDispatch({
       type: SET_NEWUSER_INFO,
-      payLoad: { field: e.target.name, value: e.target.value }
+      payLoad: { field: e.target.name, value: e.target.value },
     });
   }
 
   async function signupHandler() {
-    const { firstname, lastname, email, password } = signupState;
+    const {
+      firstname, lastname, email, password,
+    } = signupState;
     const response = await signUpService(firstname, lastname, email, password);
     console.log(response);
     if (response.status === 201) {
-      navigate("/login");
-      toast.success(`User registered succesfully`, {
-        position: "top-right",
+      navigate('/login');
+      toast.success('User registered succesfully', {
+        position: 'top-right',
         autoClose: 3000,
-        hideProgressBar: true
+        hideProgressBar: true,
       });
     } else {
-      toast.dark(`User registration fail.Please try again`, {
-        position: "top-right",
+      toast.dark('User registration fail.Please try again', {
+        position: 'top-right',
         autoClose: 3000,
-        hideProgressBar: true
+        hideProgressBar: true,
       });
     }
   }
@@ -59,8 +61,8 @@ export const Signup = () => {
               value={signupState.firstname}
               onChange={signupDataHandler}
               required
-            ></input>
-            <label class="form__label">First Name</label>
+            />
+            <label className="form__label">First Name</label>
           </div>
           <div className="form">
             <input
@@ -70,8 +72,8 @@ export const Signup = () => {
               value={signupState.lastname}
               onChange={signupDataHandler}
               required
-            ></input>
-            <label class="form__label">Last Name</label>
+            />
+            <label className="form__label">Last Name</label>
           </div>
           <div className="form">
             <input
@@ -81,7 +83,7 @@ export const Signup = () => {
               value={signupState.email}
               onChange={signupDataHandler}
               required
-            ></input>
+            />
             <label className="form__label">email</label>
           </div>
           <div className="form">
@@ -92,7 +94,7 @@ export const Signup = () => {
               value={signupState.password}
               onChange={signupDataHandler}
               required
-            ></input>
+            />
             <label className="form__label">password</label>
           </div>
           <div className="btn__container">
@@ -104,4 +106,4 @@ export const Signup = () => {
       </div>
     </>
   );
-};
+}

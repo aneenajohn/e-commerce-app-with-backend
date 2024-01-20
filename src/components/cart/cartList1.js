@@ -1,25 +1,25 @@
-import { useCart } from "./cartContext";
-import { useWishList } from "../WishList/wishContext";
-import { Header } from "../header";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer } from 'react-toastify';
+import { useCart } from './cartContext';
+import { useWishList } from '../WishList/wishContext';
+import { Header } from '../header';
 import {
   wishlistHandler,
   CartUpdate,
-  deleteCartItem
-} from "../ServerCalls/ServerCalls";
-import { isAddedInList } from "../utils/utils";
-import { EmptyCart } from "./EmptyCart";
-import { useAuth } from "../Context/authProvider";
-import "./cartList1.styles.css";
-import "./cartStyles.css";
-import { processPayment } from "./processPayment";
-import { GetPrice } from "./getPrice";
+  deleteCartItem,
+} from '../ServerCalls/ServerCalls';
+import { isAddedInList } from '../utils/utils';
+import { EmptyCart } from './EmptyCart';
+import { useAuth } from '../Context/authProvider';
+import './cartList1.styles.css';
+import './cartStyles.css';
+import { processPayment } from './processPayment';
+import { GetPrice } from './getPrice';
 
-export const Cart = () => {
+export function Cart() {
   const { itemsInCart, dispatch: cartDispatch } = useCart();
   const { dispatch: wishDispatch, wishList } = useWishList();
   const {
-    authState: { userToken }
+    authState: { userToken },
   } = useAuth();
   // const [isQtyUpdated, setQtyUpdate] = useState(true);
   // const totalPrice = () =>
@@ -37,10 +37,14 @@ export const Cart = () => {
         <div>
           {itemsInCart?.length !== 0 && (
             <div className="container__main">
-              <h2 className="cart-title">My Cart ({itemsInCart?.length})</h2>
+              <h2 className="cart-title">
+                My Cart (
+                {itemsInCart?.length}
+                )
+              </h2>
               <div className="cart-items">
                 {itemsInCart?.map((data) => (
-                  <div className="item" Key={data._id}>
+                  <div className="item" key={data._id}>
                     <div className="card__thumbnail cart-image">
                       <img
                         src={data.imageUrl}
@@ -51,14 +55,12 @@ export const Cart = () => {
                     <i
                       className={
                         isAddedInList(data._id, wishList)
-                          ? "fa fa-heart wish-icon cart wish-icon--selected"
-                          : "fa fa-heart wish-icon cart"
+                          ? 'fa fa-heart wish-icon cart wish-icon--selected'
+                          : 'fa fa-heart wish-icon cart'
                       }
                       aria-hidden="true"
-                      onClick={() =>
-                        wishlistHandler(data, wishList, wishDispatch, userToken)
-                      }
-                    ></i>
+                      onClick={() => wishlistHandler(data, wishList, wishDispatch, userToken)}
+                    />
                     <div className="card__desc">
                       <h1>
                         <strong>{data.name}</strong>
@@ -66,57 +68,56 @@ export const Cart = () => {
                       <p className="description">{data.description}</p>
                       <div className="star-count">
                         <p className="star-count__star">{data.ratings}</p>
-                        <div class="rating">
+                        <div className="rating">
                           <div className="rating__stars">
-                            <i className="fa fa-star" aria-hidden="true"></i>
+                            <i className="fa fa-star" aria-hidden="true" />
                           </div>
                         </div>
                       </div>
                       <h2 className="price">
-                        <strong> ₹ {data.price}</strong>
+                        <strong>
+                          {' '}
+                          ₹
+                          {data.price}
+                        </strong>
                       </h2>
                       <p className="card__details offer">{data.offer}</p>
                       <i
-                        class="fa fa-plus"
+                        className="fa fa-plus"
                         aria-hidden="true"
-                        onClick={() =>
-                          CartUpdate(
-                            { type: "INCREMENT", payLoad: data._id },
-                            data.name,
-                            itemsInCart,
-                            cartDispatch,
-                            userToken
-                          )
-                        }
-                      ></i>
+                        onClick={() => CartUpdate(
+                          { type: 'INCREMENT', payLoad: data._id },
+                          data.name,
+                          itemsInCart,
+                          cartDispatch,
+                          userToken,
+                        )}
+                      />
                       <div className="card__quantity">{data.quantity}</div>
                       <i
-                        class="fa fa-minus"
+                        className="fa fa-minus"
                         aria-hidden="true"
-                        onClick={() =>
-                          CartUpdate(
-                            { type: "DECREMENT", payLoad: data._id },
-                            data.name,
-                            itemsInCart,
-                            cartDispatch,
-                            userToken
-                          )
-                        }
-                      ></i>
+                        onClick={() => CartUpdate(
+                          { type: 'DECREMENT', payLoad: data._id },
+                          data.name,
+                          itemsInCart,
+                          cartDispatch,
+                          userToken,
+                        )}
+                      />
                       <button
                         className="btn-outlined btn-outlined--primary  btn--trash"
                         onClick={
-                          () =>
-                            deleteCartItem(
-                              data._id,
-                              data.name,
-                              cartDispatch,
-                              userToken
-                            )
+                          () => deleteCartItem(
+                            data._id,
+                            data.name,
+                            cartDispatch,
+                            userToken,
+                          )
                           // cartDispatch({ type: "REMOVE", payLoad: _id })
                         }
                       >
-                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        <i className="fa fa-trash-o" aria-hidden="true" />
                         Remove
                       </button>
                     </div>
@@ -125,13 +126,13 @@ export const Cart = () => {
               </div>
               <div className="order-btn-container">
                 <div
-                  class="btn btn--primary order-btn"
+                  className="btn btn--primary order-btn"
                   onClick={() => processPayment(itemsInCart)}
                 >
                   Place Order
                 </div>
               </div>
-              <ToastContainer style={{ fontSize: "medium" }} />
+              <ToastContainer style={{ fontSize: 'medium' }} />
             </div>
           )}
         </div>
@@ -140,7 +141,12 @@ export const Cart = () => {
             <p className="bill-header para">Price Details</p>
             <div className="bill-container">
               <div className="bill-details para">
-                <p>Price ({itemsInCart?.length} items)</p>
+                <p>
+                  Price (
+                  {itemsInCart?.length}
+                  {' '}
+                  items)
+                </p>
                 {/* <p>{totalPrice()}</p> */}
                 <p>
                   <GetPrice />
@@ -165,4 +171,4 @@ export const Cart = () => {
       </section>
     </>
   );
-};
+}

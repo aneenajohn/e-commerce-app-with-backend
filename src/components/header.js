@@ -1,17 +1,17 @@
-import { useCart } from "./cart/cartContext";
-import { Link, useLocation } from "react-router-dom";
-import { useWishList } from "./WishList/wishContext";
-import { useAuth } from "./Context/authProvider";
+import { Link, useLocation } from 'react-router-dom';
+import { useCart } from './cart/cartContext';
+import { useWishList } from './WishList/wishContext';
+import { useAuth } from './Context/authProvider';
 import {
   ADD_TO_CART,
   SET_LOGOUT,
   SET_WISHLIST_DATA,
   ADD_TO_WISHLIST,
-  SET_CART_DATA
-} from "./utils/constants";
-import "./header.css";
+  SET_CART_DATA,
+} from './utils/constants';
+import './header.css';
 
-export const Header = () => {
+export function Header() {
   const { itemsInCart, dispatch: cartDispatch } = useCart();
   const { wishList, dispatch: wishDispatch } = useWishList();
   const location = useLocation();
@@ -19,15 +19,15 @@ export const Header = () => {
 
   const {
     authState: { isLoggedIn, userToken },
-    authDispatch
+    authDispatch,
   } = useAuth();
 
-  console.log("isLoggedIn: ", isLoggedIn, "userToken: ", userToken);
+  console.log('isLoggedIn: ', isLoggedIn, 'userToken: ', userToken);
 
   function logouthandler() {
-    localStorage?.removeItem("login");
+    localStorage?.removeItem('login');
     authDispatch({
-      type: SET_LOGOUT
+      type: SET_LOGOUT,
     });
     // cartDispatch({
     //   type: SET_CART_DATA,
@@ -55,11 +55,11 @@ export const Header = () => {
               <i
                 className="fa fa-shopping-cart fa-shopping-cart--nav"
                 aria-hidden="true"
-              ></i>
+              />
             ) : (
-              <div class="icon-badge">
-                <i class="fa fa-shopping-cart cart" aria-hidden="true"></i>
-                <span class="icon-badge__cart">{itemsInCart?.length}</span>
+              <div className="icon-badge">
+                <i className="fa fa-shopping-cart cart" aria-hidden="true" />
+                <span className="icon-badge__cart">{itemsInCart?.length}</span>
               </div>
             )}
           </div>
@@ -69,11 +69,11 @@ export const Header = () => {
           <Link to="/wishlist" state={{ wishList }}>
             <div className="nav__link">
               {!isLoggedIn ? (
-                <i className="fa fa-heart wish-header" aria-hidden="true"></i>
+                <i className="fa fa-heart wish-header" aria-hidden="true" />
               ) : (
-                <div class="icon-badge">
-                  <i class="fa fa-heart wish-header" aria-hidden="true"></i>
-                  <span class="icon-badge__wish">{wishList?.length}</span>
+                <div className="icon-badge">
+                  <i className="fa fa-heart wish-header" aria-hidden="true" />
+                  <span className="icon-badge__wish">{wishList?.length}</span>
                 </div>
               )}
             </div>
@@ -97,4 +97,4 @@ export const Header = () => {
       </ul>
     </nav>
   );
-};
+}

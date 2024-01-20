@@ -1,7 +1,7 @@
-import "./EmptyCartStyles.css";
-import { Link } from "react-router-dom";
+import './EmptyCartStyles.css';
+import { Link } from 'react-router-dom';
 
-export const EmptyCart = () => {
+export function EmptyCart() {
   return (
     <div className="empty">
       <h2 className="content">Oh no...Looks like your cart is empty !</h2>
@@ -12,4 +12,4 @@ export const EmptyCart = () => {
       </Link>
     </div>
   );
-};
+}

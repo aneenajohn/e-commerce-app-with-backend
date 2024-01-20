@@ -1,14 +1,14 @@
-import { createContext, useContext } from "react";
-import { productReducer } from "./productReducer";
-import { useReducer } from "react";
+import { createContext, useContext, useReducer } from 'react';
+import { productReducer } from './productReducer';
+
 export const ProductContext = createContext();
 
-export const ProductProvider = ({ children }) => {
+export function ProductProvider({ children }) {
   const [state, dispatch] = useReducer(productReducer, {
     products: [],
-    sortBy: "All",
+    sortBy: 'All',
     showInventoryAll: true,
-    showFastDeliveryOnly: false
+    showFastDeliveryOnly: false,
   });
 
   return (
@@ -20,14 +20,14 @@ export const ProductProvider = ({ children }) => {
           sortBy: state.sortBy,
           showInventoryAll: state.showInventoryAll,
           showFastDeliveryOnly: state.showFastDeliveryOnly,
-          dispatch
+          dispatch,
         })
       }
     >
       {children}
     </ProductContext.Provider>
   );
-};
+}
 
 export function useProduct() {
   return useContext(ProductContext);

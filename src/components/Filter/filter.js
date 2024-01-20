@@ -1,7 +1,7 @@
 export function getFilteredData(
   productList,
   showInventoryAll,
-  showFastDeliveryOnly
+  showFastDeliveryOnly,
 ) {
   return productList
     .filter(({ inStock }) => (showInventoryAll ? true : inStock))

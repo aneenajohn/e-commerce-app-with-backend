@@ -1,4 +1,4 @@
-import { SET_NEWUSER_INFO } from "../utils/constants";
+import { SET_NEWUSER_INFO } from '../utils/constants';
 
 export const signupReducer = (state, action) => {
   switch (action.type) {

@@ -1,4 +1,4 @@
-import { SET_USER_INFO } from "../utils/constants";
+import { SET_USER_INFO } from '../utils/constants';
 
 export const loginReducer = (state, action) => {
   switch (action.type) {
